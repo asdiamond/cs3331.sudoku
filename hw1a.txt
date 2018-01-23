@@ -1,25 +1,4 @@
-	    CS 3331: Advanced Object-Oriented Programming
-
-		    HOMEWORK 1a: Warm-up -- Sudoku
-		 (File $Date: 2018/01/07 21:06:18 $)
-
 Due: January 25 (Thursday)
-
-This assignment must be done individually.
-
-In this course, you will be developing a series of Java applications
-to play Sudoku puzzles. You will start with a simple, console-based
-application and will refine it in several iterations to an ultimate,
-network version.
-
-Sudoku is a logic-based, number placement puzzle for a single player
-[1]. The objective of the game is to fill a 9x9 grid with numbers so
-that each column, row, and 3x3 sub-grid that composes the grid
-contains all of the numbers from one to nine (see the figure
-below). The same number cannot appear more than once in the same
-column, row or sub-grid. A game starts with a partially filled grid,
-typically having at least 17 numbers, normally 22-30 numbers. These
-pre-filled numbers cannot be replaced by the player.
 
 	       +---+---+---+---+---+---+---+---+---+
 	       |   | 2 |   ! 6 |   | 9 !   | 5 |   |
