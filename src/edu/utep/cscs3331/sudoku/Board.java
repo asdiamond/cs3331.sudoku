@@ -1,6 +1,17 @@
 package edu.utep.cscs3331.sudoku;
 import java.util.Random;
 
+/*
+ * Generate solved board.
+ * start with blank and fill sqrtn by sqrtn box
+ * with permutation, add 1 to each permutation
+ * and fill subsequent
+ */
+
+
+//to check box
+//subtract one from positions, divide both by sqrt and multiply by square root
+
 public class Board {
     private int size;
     private boolean solved;
@@ -32,7 +43,15 @@ public class Board {
         return rand.nextBoolean();
     }
 
-    public void updateBoard(UserInputPosition position){
+    //TODO main part of the program. Checks valid input
+    //@param position is not guranteed to be safe in any way other than
+    //having all values. So bounds checking is necessary
+    public void updateBoard(UserInputPosition position) throws SudokuInvalidPositionException {
+        //check bounds
+        if(position.getX() >= size || position.getY() >= size || position.getVal() > size){
+            throw new SudokuInvalidPositionException("invalid x, y or value.");
+        }
+//        if(position)
         internalBoard[position.getX()][position.getY()] = position.getVal();
     }
 
