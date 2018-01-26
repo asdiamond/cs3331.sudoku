@@ -1,5 +1,4 @@
 package edu.utep.cscs3331.sudoku;
-import java.util.Random;
 import java.util.Stack;
 
 /*
@@ -35,6 +34,7 @@ public class Board {
         for (int i = 0; i <= size; i++) {
 
         }
+        return null;
     }
 
     private void validateSize(int size) throws SudokuSizeInputException {
@@ -47,9 +47,8 @@ public class Board {
     }
 
     //just for testing
-    private static Random rand = new Random(100);
     public boolean isSolved(){
-        return rand.nextBoolean();
+        return false;
     }
 
     //TODO main part of the program. Checks valid input
@@ -57,11 +56,50 @@ public class Board {
     //having all values. So bounds checking is necessary
     public void updateBoard(UserInputPosition position) throws SudokuInvalidPositionException {
         //check bounds
-        if(position.getX() >= size || position.getY() >= size || position.getVal() > size){
-            throw new SudokuInvalidPositionException("invalid x, y or value.");
+        if(position.getRow() > size || position.getCol() > size || position.getVal() > size){
+            throw new SudokuInvalidPositionException("row, col, or val is out of bounds.");
         }
-//        if(position)
-        internalBoard[position.getX()][position.getY()] = position.getVal();
+        if(
+                validBox(position.getRow(), position.getCol(), position.getVal()) &&
+                validCol(position.getCol(), position.getVal()) &&
+                validRow(position.getRow(), position.getVal()))
+        {//if
+            internalBoard[position.getRow()][position.getCol()] = position.getVal();
+        }//end if
+        else{//not a valid move
+            throw new SudokuInvalidPositionException("in bounds but invalid move.");
+        }
+    }
+
+    private boolean validBox(int row, int col, int entry){
+        int rowBound = (int) ((row - 1) / Math.sqrt(size));
+        rowBound = (int) (rowBound * Math.sqrt(size));
+
+        int colBound = (int) ((col - 1) / Math.sqrt(size));
+        colBound = (int) (colBound * Math.sqrt(size));
+
+        for(int i = rowBound; i < rowBound + (int) Math.sqrt(size); i++){
+            for(int j = colBound; j < colBound + (int) Math.sqrt(size); j++){
+                if(entry == internalBoard[i][j])
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean validRow(int row, int entry){
+        for (int i = 0; i < size; i++)
+            if(internalBoard[row][i] == entry)
+                return false;
+        return true;
+    }
+
+    private boolean validCol(int col, int entry){
+        for (int i = 0; i < size; i++)
+            if(internalBoard[i][col] == entry)
+                return false;
+        return true;
     }
 
     public int getIndex(int x, int y){
@@ -72,4 +110,26 @@ public class Board {
     public int getSize(){
         return size;
     }
+
+    //decent test code..
+
+    /*
+    public static void main(String[] args) {
+        try {
+            Board b = new Board();
+            b.internalBoard = new int[][]{
+                    {1, 2, 3, 0},
+                    {3, 4, 1, 2},
+                    {2, 3, 4, 1},
+                    {4, 1, 2, 3}
+            };
+            b.updateBoard(new UserInputPosition(0, 3, 4));
+            ConsoleUI ui = new ConsoleUI();
+            ui.displayBoard(b);
+        } catch (SudokuSizeInputException | SudokuInvalidPositionException e) {
+            e.printStackTrace();
+        }
+    }
+    */
+
 }

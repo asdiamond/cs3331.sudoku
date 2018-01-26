@@ -11,20 +11,20 @@ package edu.utep.cscs3331.sudoku;
  */
 public class UserInputPosition {
     //keep track of variables internally
-    private int x, y, val;
+    private int row, col, val;
 
-    public UserInputPosition(int x, int y, int val){
-        this.x = x;
-        this.y = y;
+    public UserInputPosition(int row, int col, int val){
+        this.row = row;
+        this.col = col;
         this.val = val;
     }
 
-    public int getX() {
-        return x;
+    public int getRow() {
+        return row;
     }
 
-    public int getY() {
-        return y;
+    public int getCol() {
+        return col;
     }
 
     public int getVal() {
