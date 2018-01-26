@@ -1,5 +1,6 @@
 package edu.utep.cscs3331.sudoku;
 import java.util.Random;
+import java.util.Stack;
 
 /*
  * Generate solved board.
@@ -26,6 +27,14 @@ public class Board {
         validateSize(size);
         this.size = size;
         internalBoard = new int[size][size];
+
+    }
+
+    public Stack getUniqueRandomNumbers(int size){
+        Stack stack = new Stack();
+        for (int i = 0; i <= size; i++) {
+
+        }
     }
 
     private void validateSize(int size) throws SudokuSizeInputException {

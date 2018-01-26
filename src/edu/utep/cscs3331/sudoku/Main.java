@@ -29,7 +29,11 @@ public class Main {
         while(!board.isSolved()){
             ui.displayBoard(board);
             UserInputPosition userPosition = ui.promptMove();
-            board.updateBoard(userPosition);
+            try {
+                board.updateBoard(userPosition);
+            } catch (SudokuInvalidPositionException e) {
+                e.printStackTrace();
+            }
             ui.displayBoard(board);
             ui.promptQuit();
         }
