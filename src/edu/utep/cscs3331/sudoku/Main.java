@@ -26,13 +26,15 @@ public class Main {
             }
         } while (!validsize);
 
+        //TODO make a prompt for quitting
         while(!board.isSolved()){
             ui.displayBoard(board);
             UserInputPosition userPosition = ui.promptMove();
             try {
                 board.updateBoard(userPosition);
             } catch (SudokuInvalidPositionException e) {
-                e.printStackTrace();
+                ui.promptInvalidInput();
+//                e.printStackTrace();
             }
             ui.displayBoard(board);
             ui.promptQuit();

@@ -53,13 +53,14 @@ public class ConsoleUI {
 
     public UserInputPosition promptMove(){
         //FIXME needs to be more safe...
-        out.println("Enter the axis and val separated by a space (x y val)");
+        out.println("Enter the row and column separated by a space example: row col val");
         String[] rawInput = input.nextLine().trim().split("\\s+");
-        return new UserInputPosition(Integer.parseInt(rawInput[0]), Integer.parseInt(rawInput[1]), Integer.parseInt(rawInput[2]));
+        return new UserInputPosition(Integer.parseInt(rawInput[0]) - 1, Integer.parseInt(rawInput[1]) - 1, Integer.parseInt(rawInput[2]));
     }
 
-    public void promptQuit(){
-
+    public boolean promptQuit(){
+        out.println("enter quit to quit.");
+        return input.nextLine().trim().equalsIgnoreCase("quit");
     }
 
     public void promptInvalidInput() {

@@ -14,8 +14,8 @@ import java.util.Stack;
 
 public class Board {
     private int size;
-    private boolean solved;
     private int[][] internalBoard;
+    private int movesLeft;//number of valid moves left. determines if board is solved
 
     //defaults to 4
     public Board() throws SudokuSizeInputException {
@@ -26,7 +26,7 @@ public class Board {
         validateSize(size);
         this.size = size;
         internalBoard = new int[size][size];
-
+        movesLeft = size * size;
     }
 
     public Stack getUniqueRandomNumbers(int size){
@@ -48,7 +48,7 @@ public class Board {
 
     //just for testing
     public boolean isSolved(){
-        return false;
+        return movesLeft == 0;
     }
 
     //TODO main part of the program. Checks valid input
@@ -65,6 +65,7 @@ public class Board {
                 validRow(position.getRow(), position.getVal()))
         {//if
             internalBoard[position.getRow()][position.getCol()] = position.getVal();
+            movesLeft--;//update the amount of valid moves left
         }//end if
         else{//not a valid move
             throw new SudokuInvalidPositionException("in bounds but invalid move.");
