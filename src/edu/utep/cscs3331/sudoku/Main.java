@@ -27,7 +27,8 @@ public class Main {
         } while (!validsize);
 
         //TODO make a prompt for quitting
-        while(!board.isSolved()){
+        boolean quiting = false;
+        while(!board.isSolved() && !quiting){
             ui.displayBoard(board);
             UserInputPosition userPosition = ui.promptMove();
             try {
@@ -37,8 +38,12 @@ public class Main {
 //                e.printStackTrace();
             }
             ui.displayBoard(board);
-            ui.promptQuit();
+            quiting = ui.promptQuit();
         }
-        ui.showMessage("Solved!");
+        //couldve just quit
+        if(board.isSolved()){
+            ui.showMessage("Solved!");
+        }
+        ui.showMessage("Goodbye!");
     }
 }

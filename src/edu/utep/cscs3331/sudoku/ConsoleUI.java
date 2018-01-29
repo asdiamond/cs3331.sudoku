@@ -59,7 +59,7 @@ public class ConsoleUI {
     }
 
     public boolean promptQuit(){
-        out.println("enter quit to quit.");
+        out.println("enter quit to quit. Or anything else to continue");
         return input.nextLine().trim().equalsIgnoreCase("quit");
     }
 
