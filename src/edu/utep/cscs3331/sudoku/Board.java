@@ -59,20 +59,22 @@ public class Board {
         if(position.getRow() > size || position.getCol() > size || position.getVal() > size){
             throw new SudokuInvalidPositionException("row, col, or val is out of bounds.");
         }
-        if(
-                validBox(position.getRow(), position.getCol(), position.getVal()) &&
-                validCol(position.getCol(), position.getVal()) &&
-                validRow(position.getRow(), position.getVal()))
-        {//if
+        try {
+            validBox(position.getRow(), position.getCol(), position.getVal());
+            validCol(position.getCol(), position.getVal());
+            validRow(position.getRow(), position.getVal());
             internalBoard[position.getRow()][position.getCol()] = position.getVal();
             movesLeft--;//update the amount of valid moves left
-        }//end if
-        else{//not a valid move
-            throw new SudokuInvalidPositionException("in bounds but invalid move.");
+        } catch (SudokuInvalidPositionException e){
+            throw new SudokuInvalidPositionException("in bounds but invalid move (row col val):"
+                    + position.getRow()
+                    + " " + position.getCol()
+                    + " " + position.getVal()
+            );
         }
     }
 
-    private boolean validBox(int row, int col, int entry){
+    private boolean validBox(int row, int col, int entry) throws SudokuInvalidPositionException {
         int rowBound = (int) ((row - 1) / Math.sqrt(size));
         rowBound = (int) (rowBound * Math.sqrt(size));
 
@@ -81,25 +83,25 @@ public class Board {
 
         for(int i = rowBound; i < rowBound + (int) Math.sqrt(size); i++){
             for(int j = colBound; j < colBound + (int) Math.sqrt(size); j++){
-                if(entry == internalBoard[i][j])
-                    return false;
+                if(entry == internalBoard[i][j]) {
+                    throw new SudokuInvalidPositionException("entry in row col " + i + " " + j);
+                }
             }
         }
-
         return true;
     }
 
-    private boolean validRow(int row, int entry){
+    private boolean validRow(int row, int entry) throws SudokuInvalidPositionException {
         for (int i = 0; i < size; i++)
             if(internalBoard[row][i] == entry)
-                return false;
+                throw new SudokuInvalidPositionException("row col " + row + " " + i);
         return true;
     }
 
-    private boolean validCol(int col, int entry){
+    private boolean validCol(int col, int entry) throws SudokuInvalidPositionException {
         for (int i = 0; i < size; i++)
             if(internalBoard[i][col] == entry)
-                return false;
+                throw new SudokuInvalidPositionException("row col " + i + " " + col);
         return true;
     }
 

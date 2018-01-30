@@ -3,10 +3,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class Info {
-    public int[] sizes = new int[]{4, 9};
-    public int[] levels = new int[]{1, 2, 3};
-    public int defaultSize = 4;
-    public int defaultLevel = 1;
+    private static final String requestUrl = "http://www.cs.utep.edu/cheon/ws/sudoku/info/ ";
+    public int[] sizes = new int[]{};
+    public int[] levels = new int[]{};
+    public int defaultSize;
+    public int defaultLevel;
+
+    public static Info query(){
+        String jsonResponse = new Client().sendGet(requestUrl);
+        return new Gson().fromJson(jsonResponse, Info.class);
+    }
 
     //seems to serialize to info correctly
     public static void main(String[] args){

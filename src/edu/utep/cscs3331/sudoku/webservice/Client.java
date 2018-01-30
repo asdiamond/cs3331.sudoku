@@ -39,8 +39,15 @@ public class Client {
         }
 
         public static void main(String[] args) {
-            String url = "http://www.cs.utep.edu/cheon/ws/sudoku/info/";
-            String response = new Client().sendGet(url);
-            System.out.println(response);
+//            String url = "http://www.cs.utep.edu/cheon/ws/sudoku/info/";
+//            String response = new Client().sendGet(url);
+//            System.out.println(response);
+
+            PuzzleRequest request = new PuzzleRequest(4, 2);
+            PuzzleRequest.Puzzle response = request.query();
+
+//            for (Square t : response.getSquares()) {
+//                System.out.println(t);
+//            }
         }
 }

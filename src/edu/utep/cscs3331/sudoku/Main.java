@@ -26,7 +26,6 @@ public class Main {
             }
         } while (!validsize);
 
-        //TODO make a prompt for quitting
         boolean quiting = false;
         while(!board.isSolved() && !quiting){
             ui.displayBoard(board);
@@ -40,10 +39,9 @@ public class Main {
             ui.displayBoard(board);
             quiting = ui.promptQuit();
         }
-        //couldve just quit
-        if(board.isSolved()){
-            ui.showMessage("Solved!");
-        }
+        //couldve just quit and not solved
+        if(board.isSolved()) ui.showMessage("Solved!");
         ui.showMessage("Goodbye!");
+        ui.exit();
     }
 }

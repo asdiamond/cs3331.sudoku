@@ -1,11 +1,8 @@
 package edu.utep.cscs3331.sudoku;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsoleUI {
     private InputStream in;
@@ -32,6 +29,20 @@ public class ConsoleUI {
             return Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){//will work for strings, or empty space
             throw new SudokuSizeInputException("Input not a number");
+        }
+    }
+
+    public int promptLevel(int[] levels) throws NumberFormatException{
+        out.println("Please enter a valid level");
+        try{
+            int level = Integer.parseInt(input.nextLine());
+            for (int validLevel : levels) {
+                if (validLevel == level) return level;
+            }
+            //if youve gotten here its an invalid level
+            throw new NumberFormatException();
+        } catch(NumberFormatException e){
+            throw new NumberFormatException("Invalid level");
         }
     }
 
