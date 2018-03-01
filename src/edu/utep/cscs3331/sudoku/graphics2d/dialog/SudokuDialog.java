@@ -66,6 +66,7 @@ public class SudokuDialog extends JFrame {
     }
 
     /**
+     * TODO Implement this
      * Callback to be invoked when a square of the board is clicked.
      * @param x 0-based row index of the clicked square.
      * @param y 0-based column index of the clicked square.
@@ -77,6 +78,7 @@ public class SudokuDialog extends JFrame {
     }
     
     /**
+     * TODO Implement this
      * Callback to be invoked when a number button is clicked.
      * @param number Clicked number (1-9), or 0 for "X".
      */
@@ -87,6 +89,7 @@ public class SudokuDialog extends JFrame {
     }
     
     /**
+     * TODO Implement this
      * Callback to be invoked when a new button is clicked.
      * If the current game is over, start a new game of the given size;
      * otherwise, prompt the user for a confirmation and then proceed

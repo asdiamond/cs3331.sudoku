@@ -88,6 +88,14 @@ public class BoardPanel extends JPanel {
         g.setColor(boardColor);
         g.fillRect(0, 0, squareSize * board.getSize(), squareSize * board.getSize());
 
+        g.setColor(Color.BLACK);
+//        g.drawRect(0, 0, squareSize, squareSize);
+
+        for(int i = 0; i < board.getSize(); i++){
+            for(int j = 0; j < board.getSize(); j++){
+                g.drawRect(i * squareSize, j * squareSize, squareSize, squareSize);
+            }
+        }
         // WRITE YOUR CODE HERE ...
         // i.e., draw grid and squares.
     }

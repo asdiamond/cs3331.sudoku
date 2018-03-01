@@ -33,14 +33,6 @@ public class Board {
         movesLeft = size * size;
     }
 
-    public Stack getUniqueRandomNumbers(int size){
-        Stack stack = new Stack();
-        for (int i = 0; i <= size; i++) {
-
-        }
-        return null;
-    }
-
     private void validateSize(int size) throws SudokuSizeInputException {
         if(size == 4 || size == 9){
             return;
@@ -51,6 +43,8 @@ public class Board {
     }
 
     //just for testing
+    //need to update so this method actually looks to
+    //see if board is in solved state.
     public boolean isSolved(){
         return movesLeft == 0;
     }
