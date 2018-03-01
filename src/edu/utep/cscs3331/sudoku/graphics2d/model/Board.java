@@ -22,12 +22,12 @@ public class Board {
     private int movesLeft;//number of valid moves left. determines if board is solved
 
     //defaults to 4
-    public Board() throws SudokuSizeInputException {
+    public Board() {
         this(4);
     }
 
-    public Board(int size) throws SudokuSizeInputException {
-        validateSize(size);
+    public Board(int size) {
+//        validateSize(size);
         this.size = size;
         internalBoard = new int[size][size];
         movesLeft = size * size;

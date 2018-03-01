@@ -7,13 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.net.URL;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import edu.utep.cscs3331.sudoku.console.SudokuSizeInputException;
 import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
@@ -30,6 +24,9 @@ public class SudokuDialog extends JFrame {
 
     /** Default dimension of the dialog. */
     private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
+
+//    DEFAULT_SIZE scaled down by 5
+//    private final static Dimension DEFAULT_DIALOG_SIZE = new Dimension(62, 86);
 
     private final static String IMAGE_DIR = "../image/";//fixme...
 
@@ -52,11 +49,7 @@ public class SudokuDialog extends JFrame {
         super("Sudoku");
         setSize(dim);
         //wasnt necessary in demo code. May need to refactor.
-        try {
-            board = new Board(9);
-        } catch (SudokuSizeInputException e) {
-            e.printStackTrace();
-        }
+        board = new Board(9);
         boardPanel = new BoardPanel(board, this::boardClicked);
         configureUI();
         //setLocationRelativeTo(null);
@@ -99,7 +92,16 @@ public class SudokuDialog extends JFrame {
     private void newClicked(int size) {
         // WRITE YOUR CODE HERE ...
         //
-        showMessage("New clicked: " + size);
+        int result = JOptionPane.showConfirmDialog(null, "Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){
+            showMessage("He wants to start a new one with size = " + size);
+            this.board = new Board(size);
+            boardPanel.setBoard(this.board);
+            repaint();//from Jframe documentation, tell this to repaint itself.
+        } else {
+            showMessage("");//to clear it
+        }
+//        showMessage("New clicked: " + size);
     }
 
     /**
