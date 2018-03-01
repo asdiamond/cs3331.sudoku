@@ -1,4 +1,4 @@
-package edu.utep.cscs3331.sudoku.webservice;
+package edu.utep.cscs3331.sudoku.console.webservice;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

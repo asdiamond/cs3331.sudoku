@@ -1,4 +1,4 @@
-package edu.utep.cscs3331.sudoku.webservice;
+package edu.utep.cscs3331.sudoku.console.webservice;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,18 +36,5 @@ public class Client {
                 }
             }
             return null;
-        }
-
-        public static void main(String[] args) {
-//            String url = "http://www.cs.utep.edu/cheon/ws/sudoku/info/";
-//            String response = new Client().sendGet(url);
-//            System.out.println(response);
-
-            PuzzleRequest request = new PuzzleRequest(4, 2);
-            PuzzleRequest.Puzzle response = request.query();
-
-//            for (Square t : response.getSquares()) {
-//                System.out.println(t);
-//            }
         }
 }

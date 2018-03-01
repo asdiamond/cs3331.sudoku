@@ -1,6 +1,6 @@
-package edu.utep.cscs3331.sudoku.webservice;
+package edu.utep.cscs3331.sudoku.console.webservice;
 
-import edu.utep.cscs3331.sudoku.*;
+import edu.utep.cscs3331.sudoku.console.*;
 
 /**
  * Author: Aleksandr Diamond on 1/29/2018

@@ -1,4 +1,4 @@
-package edu.utep.cscs3331.sudoku.webservice;
+package edu.utep.cscs3331.sudoku.console.webservice;
 
 /**
  * Author: Aleksandr Diamond on 1/29/2018
