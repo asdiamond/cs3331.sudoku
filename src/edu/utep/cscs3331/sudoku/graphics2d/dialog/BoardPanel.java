@@ -20,7 +20,9 @@ import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
  */
 @SuppressWarnings("serial")
 public class BoardPanel extends JPanel {
-    
+
+    public int selectedX = -1, selectedY = -1;
+
 	public interface ClickListener {
 		
 		/** Callback to notify clicking of a square. 
@@ -116,6 +118,12 @@ public class BoardPanel extends JPanel {
                 }
                 g.drawString(board.getIndex(i, j) + "", (i * squareSize), ((j + 1) * squareSize));
             }
+        }
+
+        //for coloring the currently selected box
+        g.setColor(Color.PINK);
+        if((selectedX >= 0) && (selectedY >= 0)){
+            g.fillRect(selectedX * squareSize, selectedY * squareSize, squareSize, squareSize);
         }
 
         // WRITE YOUR CODE HERE ...

@@ -25,9 +25,7 @@ public class SudokuDialog extends JFrame {
     /** Default dimension of the dialog. */
     private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
 
-//    DEFAULT_SIZE scaled down by 5
-//    private final static Dimension DEFAULT_DIALOG_SIZE = new Dimension(62, 86);
-
+    /** Image directory */
     private final static String IMAGE_DIR = "../image/";//fixme...
 
     /** Sudoku board. */
@@ -67,7 +65,10 @@ public class SudokuDialog extends JFrame {
     private void boardClicked(int x, int y) {
         // WRITE YOUR CODE HERE ...
         //
-    	showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
+        boardPanel.selectedX = x;
+        boardPanel.selectedY = y;
+        repaint();
+//    	showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
     }
     
     /**
@@ -82,26 +83,20 @@ public class SudokuDialog extends JFrame {
     }
     
     /**
-     * TODO Implement this
      * Callback to be invoked when a new button is clicked.
-     * If the current game is over, start a new game of the given size;
+     * TODO If the current game is over, start a new game of the given size;
      * otherwise, prompt the user for a confirmation and then proceed
      * accordingly.
      * @param size Requested puzzle size, either 4 or 9.
      */
     private void newClicked(int size) {
-        // WRITE YOUR CODE HERE ...
-        //
         int result = JOptionPane.showConfirmDialog(null, "Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
         if(result == JOptionPane.YES_OPTION){
             showMessage("He wants to start a new one with size = " + size);
             this.board = new Board(size);
             boardPanel.setBoard(this.board);
             repaint();//from Jframe documentation, tell this to repaint itself.
-        } else {
-            showMessage("");//to clear it
         }
-//        showMessage("New clicked: " + size);
     }
 
     /**
