@@ -1,0 +1,130 @@
+	    CS 3331: Advanced Object-Oriented Programming
+
+		       HOMEWORK 2: 2D Graphic
+		 (File $Date: 2018/02/16 17:27:26 $)
+
+Due: March 1, 2018 (Thursday)
+
+This homework may be done individually or in pairs. If you work in
+pair, you need to fill out the contribution form (see the course
+website).
+
+The purpose of this homework is to be able to reuse existing code and
+learn some of the 2D graphics capability of Java [1]. In this
+homework, you are to develop the second iteration of the Sudoku game
+by providing a GUI to your HW1 program (see the HW1a handout). You can
+download baseline/template source code from the course website. The
+baseline code provides a UI consisting of the following components:
+
+- Two control buttons to start a new game of a 4x4 or 9x9 puzzle.
+- Ten number buttons (1-9 and x) to place a number.
+- A 2D graphics area to show the current configuration of the puzzle.
+- A message bar to display various messages.
+
+1. (20 points) Design your application and document it by drawing a
+   UML class diagram [Chapter 4 of 2]. Extend and refine your HW1
+   class diagram to meet specific requirements listed in Problem 2
+   below.
+
+   - Your class diagram should show the main components (classes and
+     interfaces) of your program, their roles, and relationships among
+     them.
+
+   - Your model (business logic) classes should be clearly separated
+     from the view (UI) classes with no dependencies on them; use the
+     the Model-View-Control (MVC) metaphor [3].
+
+   - For each class in your diagram, include key operations to show
+     their roles or responsibilities in your program.
+
+   - For each association (including aggregate and composite), include
+     at least a label, multiplicities and navigation directions.
+
+   - You should also need to provide a short, textual description of
+     each class appearing in your class diagram.
+
+3. (80 points) Code your design.
+
+   R1. The application shall support two different puzzle (grid)
+       sizes, 4x4 and 9x9.
+
+   R2. The application shall show the progress of the game by
+       displaying the current configuration of the puzzle -- all the
+       numbers placed in the grid (see R6 below).
+
+   R3. The application shall detect and prevent the user from placing
+       an invalid or inconsistent/conflicting numbers in the grid. A
+       number is invalid if it is outside the range (1-4 or 1-9). It
+       is inconsistent (or conflicting) if it is already placed in the
+       same column, row or sub-grid.
+
+   R4. The application shall detect and congratulate it when the user
+       completes solving the puzzle.
+
+   R5. The application shall allow a user to play a new game. If a
+       game is already in progress, it should prompt the user for a
+       confirmation (use JOptionPane.showConfirmDialog() method).
+
+   R6. The application shall use 2-D graphics to display the grid. For
+       this, you should define a custom widget class, say BoardPanel,
+       as a subclass of JPanel and override its paint() method. A
+       working template can be found in the baseline code available
+       from the course website.
+
+4. (5 bonus points) Improve the user experience of your application
+    by providing some sound effect, e.g., playing an audio clip when
+    the player attempts to place an invalid or inconsistent number,
+    or the puzzle is solved.
+
+HINTS
+   
+   Reuse your HW1 design and code as much as possible. All model
+   classes should be reusable, and some portion of control classes may
+   be adapted and reused too.
+
+TESTING
+
+   Your code should compile and run correctly under Java 8 or later
+   versions. 
+
+WHAT AND HOW TO TURN IN
+
+   Submit your program through the Assignment Submission page located
+   in the Homework section of the course website. Your program
+   submission should include the following:
+
+   - design.doc containing UML diagrams and accompanying texts
+   - contribution form and a screenshot of git log/commits (if done in
+     pair)
+   - hw2.jar, a runnable jar containing bytecode and support files 
+     (e.g., audio clips)
+   - src directory of source code files
+   
+   The submission page will ask you to zip your program and upload a
+   single zip file. Your zip file should include only a single
+   directory named YourFirstNameLastName containing all your source
+   code files and other support files needed to compile and run your
+   program. DO NOT INCLUDE BYTECODE (.class) FILES. There is a limit
+   on upload file size and the maximum file size is 2MB. You should
+   turn in your programs by midnight on the due date.
+
+GRADING
+
+   You will be graded on the quality of the design and how clear your
+   code is. Excessively long code will be penalized: don't repeat code
+   in multiple places. Your code should be reasonably documented and
+   sensibly indented so it is easy to read and understand.
+
+   Be sure your name is in the comments in your code.
+
+REFERENCES 
+
+   [1] Oracle, Inc., The Java Tutorials: 2D Graphics, available at
+       https://docs.oracle.com/javase/tutorial/2d/index.html.
+
+   [2] Martina Seidl, et al., UML@Classroom: An Introduction to
+       Object-Oriented Modeling, Springer, 2015. Free ebook through
+       UTEP library.
+
+   [3] Holger Gast, How to Use Objects, Addison-Wesley, 2016.
+       Sections 9.1 and 9.2. Ebook available from UTEP library.
