@@ -108,6 +108,14 @@ public class BoardPanel extends JPanel {
             }
         }
 
+        //for coloring the currently selected box
+        //the order here matters, you want to draw the
+        //values on top of the color
+        g.setColor(Color.PINK);
+        if((selectedX >= 0) && (selectedY >= 0)){
+            g.fillRect(selectedX * squareSize, selectedY * squareSize, squareSize, squareSize);
+        }
+
         //for drawing board values onto grid
         g.setColor(Color.BLUE);
         for (int i = 0; i < board.getSize(); i++) {
@@ -120,11 +128,6 @@ public class BoardPanel extends JPanel {
             }
         }
 
-        //for coloring the currently selected box
-        g.setColor(Color.PINK);
-        if((selectedX >= 0) && (selectedY >= 0)){
-            g.fillRect(selectedX * squareSize, selectedY * squareSize, squareSize, squareSize);
-        }
 
         // WRITE YOUR CODE HERE ...
         // i.e., draw grid and squares.

@@ -10,6 +10,7 @@ import java.net.URL;
 import javax.swing.*;
 
 import edu.utep.cscs3331.sudoku.console.SudokuSizeInputException;
+import edu.utep.cscs3331.sudoku.console.UserInputPosition;
 import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
 
 /**
@@ -57,14 +58,11 @@ public class SudokuDialog extends JFrame {
     }
 
     /**
-     * TODO Implement this
      * Callback to be invoked when a square of the board is clicked.
      * @param x 0-based row index of the clicked square.
      * @param y 0-based column index of the clicked square.
      */
     private void boardClicked(int x, int y) {
-        // WRITE YOUR CODE HERE ...
-        //
         boardPanel.selectedX = x;
         boardPanel.selectedY = y;
         repaint();
@@ -79,6 +77,8 @@ public class SudokuDialog extends JFrame {
     private void numberClicked(int number) {
         // WRITE YOUR CODE HERE ...
         //
+        board.updateBoard(new UserInputPosition(boardPanel.selectedX, boardPanel.selectedY, number));
+        repaint();
         showMessage("Number clicked: " + number);
     }
     

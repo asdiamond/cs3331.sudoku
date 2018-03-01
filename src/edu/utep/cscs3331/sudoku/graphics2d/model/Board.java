@@ -52,11 +52,11 @@ public class Board {
     //TODO main part of the program. Checks valid input
     //@param position is not guranteed to be safe in any way other than
     //having all values. So bounds checking is necessary
-    public void updateBoard(UserInputPosition position) throws SudokuInvalidPositionException {
+    public void updateBoard(UserInputPosition position) {
         //check bounds
-        if(position.getRow() > size || position.getCol() > size || position.getVal() > size){
-            throw new SudokuInvalidPositionException("row, col, or val is out of bounds.");
-        }
+//        if(position.getRow() > size || position.getCol() > size || position.getVal() > size){
+//            throw new SudokuInvalidPositionException("row, col, or val is out of bounds.");
+//        }
         try {
             validBox(position.getRow(), position.getCol(), position.getVal());
             validCol(position.getCol(), position.getVal());
@@ -64,11 +64,12 @@ public class Board {
             internalBoard[position.getRow()][position.getCol()] = position.getVal();
             movesLeft--;//update the amount of valid moves left
         } catch (SudokuInvalidPositionException e){
-            throw new SudokuInvalidPositionException("in bounds but invalid move (row col val):"
-                    + position.getRow()
-                    + " " + position.getCol()
-                    + " " + position.getVal()
-            );
+//            throw new SudokuInvalidPositionException("in bounds but invalid move (row col val):"
+//                    + position.getRow()
+//                    + " " + position.getCol()
+//                    + " " + position.getVal()
+//            );
+            e.printStackTrace();
         }
     }
 
