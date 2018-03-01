@@ -106,6 +106,15 @@ public class BoardPanel extends JPanel {
             }
         }
 
+        //for drawing board values onto grid
+        g.setColor(Color.BLUE);
+        for (int i = 0; i < board.getSize(); i++) {
+            for (int j = 0; j < board.getSize(); j++) {
+                //i is x, j is y according to board
+                g.drawString(board.getIndex(i, j) + "", (i * squareSize), ((j + 1) * squareSize));
+            }
+        }
+
         // WRITE YOUR CODE HERE ...
         // i.e., draw grid and squares.
     }
