@@ -5,12 +5,19 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 import javax.swing.*;
 
 import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
 import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
+import jdk.nashorn.internal.scripts.JO;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  * A dialog template for playing simple Sudoku games.
@@ -26,7 +33,10 @@ public class SudokuDialog extends JFrame {
     private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
 
     /** Image directory */
-    private final static String IMAGE_DIR = "../image/";//fixme...
+    private final static String IMAGE_DIR = "../image/";
+
+    /** Audio directory */
+    private final static String AUDIO_DIR = "../audio/";
 
     /** Sudoku board. */
     private Board board;
@@ -69,7 +79,6 @@ public class SudokuDialog extends JFrame {
         //in with the new
         board.getSquare(x, y).setSelected(true);
         repaint();
-//    	showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
     }
     
     /**
@@ -82,9 +91,17 @@ public class SudokuDialog extends JFrame {
         if(board.isValidMove(s)){
             board.updateBoard(s);
             if(board.isSolved()){
-                showMessage("SOLVED");
+                playSound(AUDIO_DIR + "ta-da.wav");
+                int result = JOptionPane.showConfirmDialog(null, "Congrats Buddy. Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION){
+                    this.board = new Board();
+                    boardPanel.setBoard(this.board);
+                    repaint();
+                }
+                else if(result == JOptionPane.NO_OPTION){
+                    System.exit(0);
+                }
             }
-//            showMessage("Good move");
         }
         else {
             //TODO play a sound
@@ -92,7 +109,17 @@ public class SudokuDialog extends JFrame {
         }
         repaint();
     }
-    
+
+    private void playSound(String fileName){
+        try {
+            InputStream in = new FileInputStream(fileName);
+            AudioStream au = new AudioStream(in);
+            AudioPlayer.player.start(au);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Callback to be invoked when a new button is clicked.
      * TODO If the current game is over, start a new game of the given size;
@@ -103,7 +130,6 @@ public class SudokuDialog extends JFrame {
     private void newClicked(int size) {
         int result = JOptionPane.showConfirmDialog(null, "Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
         if(result == JOptionPane.YES_OPTION){
-            showMessage("He wants to start a new one with size = " + size);
             this.board = new Board(size);
             boardPanel.setBoard(this.board);
             repaint();//from Jframe documentation, tell this to repaint itself.
