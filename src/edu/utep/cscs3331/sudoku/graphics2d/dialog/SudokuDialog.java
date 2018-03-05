@@ -5,12 +5,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
@@ -91,7 +89,7 @@ public class SudokuDialog extends JFrame {
         if(board.isValidMove(s)){
             board.updateBoard(s);
             if(board.isSolved()){
-                playSound(AUDIO_DIR + "ta-da.wav");
+                playSound("ta-da.wav");
                 int result = JOptionPane.showConfirmDialog(null, "Congrats Buddy. Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_OPTION){
                     this.board = new Board();
@@ -104,18 +102,26 @@ public class SudokuDialog extends JFrame {
             }
         }
         else {
-            //TODO play a sound
+            playSound("error.wav");
             showMessage("Invalid move. Number clicked: " + number);
         }
         repaint();
     }
 
     private void playSound(String fileName){
+        Clip clip;
         try {
-            InputStream in = new FileInputStream(fileName);
-            AudioStream au = new AudioStream(in);
-            AudioPlayer.player.start(au);
+            URL audioUrl = getClass().getResource(AUDIO_DIR + fileName);
+            AudioInputStream is = AudioSystem.getAudioInputStream(new File(String.valueOf(audioUrl)));
+            DataLine.Info info = new DataLine.Info(Clip.class, is.getFormat());
+            clip = (Clip)AudioSystem.getLine(info);
+            clip.open(is);
+            clip.start();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
     }

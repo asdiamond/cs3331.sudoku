@@ -4,26 +4,26 @@ import edu.utep.cscs3331.sudoku.console.SudokuSizeInputException;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * Generate solved board.
- * start with blank and fill sqrtn by sqrtn box
- * with permutation, add 1 to each permutation
- * and fill subsequent
+/**
+ * Represents a sudoku board.
+ * An aggregation of Squares.
  */
-
-
-//to check box
-//subtract one from positions, divide both by sqrt and multiply by square root
 
 public class Board {
     private int size;
     private List<Square> internalBoard;
 
-    //defaults to 4
+    /**
+     * Default constructor with size 4
+     */
     public Board() {
         this(4);
     }
 
+    /**
+     *
+     * @param size the size of the board. 4 or 9 are valid.
+     */
     public Board(int size) {
 //        validateSize(size);
         this.size = size;
@@ -36,9 +36,10 @@ public class Board {
         }
     }
 
-    //just for testing
-    //need to update so this method actually looks to
-    //see if board is in solved state.
+    /**
+     *
+     * @return if the board is in a solved state
+     */
     public boolean isSolved(){
         int sum = (size * (size + 1)) / 2;//sum of all numbers up to size
         for (int r = 0; r < size; r++) {
@@ -53,6 +54,12 @@ public class Board {
         return true;
     }
 
+    /**
+     *
+     * @param row Row address of square
+     * @param col Column address of square
+     * @return the square at those addresses
+     */
     public Square getSquare(int row, int col){
         for (Square s : internalBoard) {
             if ((s.getRow() == row) && (s.getCol() == col)){
@@ -71,9 +78,10 @@ public class Board {
         }
     }
 
-    //TODO main part of the program. Checks valid input
-    //@param position is not guranteed to be safe in any way other than
-    //having all values. So bounds checking is necessary
+    /**
+     * Adds given square to board.
+     * @param position The square given.
+     */
     public void updateBoard(Square position) {
         //must be a valid move
         if(!isValidMove(position)) return;
@@ -83,10 +91,20 @@ public class Board {
         internalBoard.add(position);
     }
 
+    /**
+     * Checks if move is valid sudoku move.
+     * @param move The change you are validating
+     * @return true if a valid move.
+     */
     public boolean isValidMove(Square move){
         return validBox(move) && validRow(move) && validCol(move);
     }
 
+    /**
+     * Checks if move is valid in its sudoku sub-box
+     * @param in The move to be checked.
+     * @return True if valid.
+     */
     private boolean validBox(Square in) {
         int rowBound = (int) ((in.getRow()) / Math.sqrt(size));
         rowBound = (int) (rowBound * Math.sqrt(size));
@@ -103,6 +121,11 @@ public class Board {
         return true;
     }
 
+    /**
+     * Checks if move is valid in given column
+     * @param in Move to be checked.
+     * @return True if valid
+     */
     private boolean validCol(Square in) {
         for (int i = 0; i < size; i++) {
             if((getSquare(in.getRow(), i).getVal()) == in.getVal()) return false;
@@ -110,6 +133,11 @@ public class Board {
         return true;
     }
 
+    /**
+     * Checks if move is valid in given row
+     * @param in Move to be checked.
+     * @return True if valid
+     */
     private boolean validRow(Square in) {
         for (int i = 0; i < size; i++) {
             if(getSquare(i, in.getCol()).getVal() == in.getVal()) return false;
@@ -117,14 +145,28 @@ public class Board {
         return true;
     }
 
+    /**
+     * Gives value at boards index
+     * @param row Row address of square
+     * @param col Column address of square
+     * @return value of square at address
+     */
     public int getIndex(int row, int col){
         return getSquare(row, col).getVal();
     }
 
+    /**
+     * Gives size that object was instantiated with.
+     * @return
+     */
     public int getSize(){
         return size;
     }
 
+    /**
+     * Gives first square with a selected attribute
+     * @return
+     */
     public Square getSelectedSquare(){
         for (Square s : internalBoard) {
             if (s.isSelected()) return s;

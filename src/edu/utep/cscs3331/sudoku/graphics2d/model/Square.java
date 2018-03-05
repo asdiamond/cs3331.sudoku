@@ -1,19 +1,29 @@
 package edu.utep.cscs3331.sudoku.graphics2d.model;
 
 /**
- * Course: CS 2302
  * Author: Aleksandr Diamond on 8/28/2017
  * Assignment: sudoku
- * Instructor: Dr. Fuentes
- * T.A.: TBD
- * Last Date of Modification:
- * Purpose:
+ * Purpose: Represents a single square of a sudoku game.
  */
 public class Square {
-    //keep track of variables internally
+    /**
+     * Internally for storing row, column, and value
+     * @row
+     * @col
+     * @val
+     */
     private int row, col, val;
+    /**
+     * If the square has been selected
+     */
     private boolean selected;
 
+    /**
+     * Constructs a square from params
+     * @param row Row address of square
+     * @param col Column address of square
+     * @param val Value of square
+     */
     public Square(int row, int col, int val){
         this.row = row;
         this.col = col;
