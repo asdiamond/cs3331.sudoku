@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import edu.utep.cscs3331.sudoku.console.Square;
 import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
 
 /**
@@ -21,7 +22,9 @@ import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
 @SuppressWarnings("serial")
 public class BoardPanel extends JPanel {
 
-    public int selectedX = -1, selectedY = -1;
+    //the square that is currently selected
+    //null if none
+    public Square selected;
 
 	public interface ClickListener {
 		
@@ -112,8 +115,9 @@ public class BoardPanel extends JPanel {
         //the order here matters, you want to draw the
         //values on top of the color
         g.setColor(Color.PINK);
-        if((selectedX >= 0) && (selectedY >= 0)){
-            g.fillRect(selectedX * squareSize, selectedY * squareSize, squareSize, squareSize);
+        selected = board.getSelectedSquare();
+        if(selected != null){
+            g.fillRect(selected.getRow() * squareSize, selected.getCol() * squareSize, squareSize, squareSize);
         }
 
         //for drawing board values onto grid

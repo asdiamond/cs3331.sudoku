@@ -62,8 +62,12 @@ public class SudokuDialog extends JFrame {
      * @param y 0-based column index of the clicked square.
      */
     private void boardClicked(int x, int y) {
-        boardPanel.selectedX = x;
-        boardPanel.selectedY = y;
+        //out with the old
+        if(boardPanel.selected != null){
+            boardPanel.selected.setSelected(false);
+        }
+        //in with the new
+        board.getSquare(x, y).setSelected(true);
         repaint();
 //    	showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
     }
@@ -76,7 +80,9 @@ public class SudokuDialog extends JFrame {
     private void numberClicked(int number) {
         // WRITE YOUR CODE HERE ...
         //
-        board.updateBoard(new Square(boardPanel.selectedX, boardPanel.selectedY, number));
+//        board.updateBoard(new Square(boardPanel.selectedX, boardPanel.selectedY, number));
+        boardPanel.selected.setVal(number);
+        board.updateBoard(boardPanel.selected);
         repaint();
         showMessage("Number clicked: " + number);
     }

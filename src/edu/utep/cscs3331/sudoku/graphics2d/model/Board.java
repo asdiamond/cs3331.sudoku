@@ -19,7 +19,6 @@ import java.util.List;
 
 public class Board {
     private int size;
-//    private int[][] internalBoard;
     private List<Square> internalBoard;
 
     //defaults to 4
@@ -39,7 +38,7 @@ public class Board {
         }
     }
 
-    private Square getSquare(int row, int col){
+    public Square getSquare(int row, int col){
         for (Square s : internalBoard) {
             if (s.getRow() == row && s.getCol() == col){
                 return s;
@@ -128,6 +127,14 @@ public class Board {
 
     public int getSize(){
         return size;
+    }
+
+    public Square getSelectedSquare(){
+        for (Square s :
+                internalBoard) {
+            if (s.isSelected()) return s;
+        }
+        return null;
     }
 
     //decent test code..
