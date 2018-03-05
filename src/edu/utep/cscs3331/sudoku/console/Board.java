@@ -54,7 +54,7 @@ public class Board {
     //TODO main part of the program. Checks valid input
     //@param position is not guranteed to be safe in any way other than
     //having all values. So bounds checking is necessary
-    public void updateBoard(UserInputPosition position) throws SudokuInvalidPositionException {
+    public void updateBoard(Square position) throws SudokuInvalidPositionException {
         //check bounds
         if(position.getRow() > size || position.getCol() > size || position.getVal() > size){
             throw new SudokuInvalidPositionException("row, col, or val is out of bounds.");
@@ -83,9 +83,13 @@ public class Board {
 
         for(int i = rowBound; i < rowBound + (int) Math.sqrt(size); i++){
             for(int j = colBound; j < colBound + (int) Math.sqrt(size); j++){
-                if(entry == internalBoard[i][j]) {
-                    throw new SudokuInvalidPositionException("entry in row col " + i + " " + j);
-                }
+//                if(entry == internalBoard[i][j]) {
+//                    throw new SudokuInvalidPositionException("entry in row col " + i + " " + j);
+//                }
+                System.out.println("i = " + i);
+                System.out.println("j = " + j);
+                System.out.println("Val = " + internalBoard[i][j]);
+                System.out.println();
             }
         }
         return true;
@@ -116,9 +120,9 @@ public class Board {
 
     //decent test code..
 
-    /*
     public static void main(String[] args) {
         try {
+            ConsoleUI ui = new ConsoleUI();
             Board b = new Board();
             b.internalBoard = new int[][]{
                     {1, 2, 3, 0},
@@ -126,13 +130,12 @@ public class Board {
                     {2, 3, 4, 1},
                     {4, 1, 2, 3}
             };
-            b.updateBoard(new UserInputPosition(0, 3, 4));
-            ConsoleUI ui = new ConsoleUI();
+            ui.displayBoard(b);
+            b.updateBoard(new Square(0, 3, 4));
             ui.displayBoard(b);
         } catch (SudokuSizeInputException | SudokuInvalidPositionException e) {
             e.printStackTrace();
         }
     }
-    */
 
 }

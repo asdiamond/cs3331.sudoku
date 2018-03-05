@@ -29,7 +29,7 @@ public class Main {
         boolean quiting = false;
         while(!board.isSolved() && !quiting){
             ui.displayBoard(board);
-            UserInputPosition userPosition = ui.promptMove();
+            Square userPosition = ui.promptMove();
             try {
                 board.updateBoard(userPosition);
             } catch (SudokuInvalidPositionException e) {

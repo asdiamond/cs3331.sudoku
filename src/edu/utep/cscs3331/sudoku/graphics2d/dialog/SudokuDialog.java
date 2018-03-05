@@ -9,8 +9,7 @@ import java.net.URL;
 
 import javax.swing.*;
 
-import edu.utep.cscs3331.sudoku.console.SudokuSizeInputException;
-import edu.utep.cscs3331.sudoku.console.UserInputPosition;
+import edu.utep.cscs3331.sudoku.console.Square;
 import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
 
 /**
@@ -77,7 +76,7 @@ public class SudokuDialog extends JFrame {
     private void numberClicked(int number) {
         // WRITE YOUR CODE HERE ...
         //
-        board.updateBoard(new UserInputPosition(boardPanel.selectedX, boardPanel.selectedY, number));
+        board.updateBoard(new Square(boardPanel.selectedX, boardPanel.selectedY, number));
         repaint();
         showMessage("Number clicked: " + number);
     }

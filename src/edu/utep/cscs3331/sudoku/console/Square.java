@@ -9,11 +9,11 @@ package edu.utep.cscs3331.sudoku.console;
  * Last Date of Modification:
  * Purpose:
  */
-public class UserInputPosition {
+public class Square {
     //keep track of variables internally
     private int row, col, val;
 
-    public UserInputPosition(int row, int col, int val){
+    public Square(int row, int col, int val){
         this.row = row;
         this.col = col;
         this.val = val;

@@ -50,6 +50,7 @@ public class ConsoleUI {
         out.println(message);
     }
 
+    //different board packages
     public void displayBoard(Board board){
         //TODO implement this properly
         //and make it pretty.
@@ -62,11 +63,21 @@ public class ConsoleUI {
         out.println();
     }
 
-    public UserInputPosition promptMove(){
+    public void displayBoard(edu.utep.cscs3331.sudoku.graphics2d.model.Board board){
+        for(int i = 0; i < board.getSize(); i++){
+            for (int j = 0; j < board.getSize(); j++) {
+                out.print(board.getIndex(i, j) + "  ");
+            }
+            out.println();
+        }
+        out.println();
+    }
+
+    public Square promptMove(){
         //FIXME needs to be more safe...
         out.println("Enter the row and column separated by a space example: row col val");
         String[] rawInput = input.nextLine().trim().split("\\s+");
-        return new UserInputPosition(Integer.parseInt(rawInput[0]) - 1, Integer.parseInt(rawInput[1]) - 1, Integer.parseInt(rawInput[2]));
+        return new Square(Integer.parseInt(rawInput[0]) - 1, Integer.parseInt(rawInput[1]) - 1, Integer.parseInt(rawInput[2]));
     }
 
     public boolean promptQuit(){
