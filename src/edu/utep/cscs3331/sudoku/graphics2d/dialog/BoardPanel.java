@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import edu.utep.cscs3331.sudoku.console.Square;
+import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
 import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
 
 /**
@@ -132,9 +132,6 @@ public class BoardPanel extends JPanel {
             }
         }
 
-
-        // WRITE YOUR CODE HERE ...
-        // i.e., draw grid and squares.
     }
 
 }

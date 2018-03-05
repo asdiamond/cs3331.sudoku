@@ -1,7 +1,5 @@
 package edu.utep.cscs3331.sudoku.graphics2d.model;
-import edu.utep.cscs3331.sudoku.console.ConsoleUI;
 import edu.utep.cscs3331.sudoku.console.SudokuSizeInputException;
-import edu.utep.cscs3331.sudoku.console.Square;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +36,26 @@ public class Board {
         }
     }
 
+    //just for testing
+    //need to update so this method actually looks to
+    //see if board is in solved state.
+    public boolean isSolved(){
+        int sum = (size * (size + 1)) / 2;//sum of all numbers up to size
+        for (int r = 0; r < size; r++) {
+            int rowSum = sum;
+            for (int c = 0; c < size; c++) {
+                rowSum -= getSquare(r, c).getVal();
+            }
+            if (rowSum != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public Square getSquare(int row, int col){
         for (Square s : internalBoard) {
-            if (s.getRow() == row && s.getCol() == col){
+            if ((s.getRow() == row) && (s.getCol() == col)){
                 return s;
             }
         }
@@ -56,47 +71,28 @@ public class Board {
         }
     }
 
-    //just for testing
-    //need to update so this method actually looks to
-    //see if board is in solved state.
-    public boolean isSolved(){
-        return true;
-    }
-
     //TODO main part of the program. Checks valid input
     //@param position is not guranteed to be safe in any way other than
     //having all values. So bounds checking is necessary
     public void updateBoard(Square position) {
-        //check bounds
-//        if(position.getRow() > size || position.getCol() > size || position.getVal() > size){
-//            throw new SudokuInvalidPositionException("row, col, or val is out of bounds.");
-//        }
-        System.out.println("validBox(position) = " + validBox(position));
-        System.out.println("validCol(position) = " + validCol(position));
-        System.out.println("validRow(position) = " + validRow(position));
+        //must be a valid move
+        if(!isValidMove(position)) return;
         //out with the old..
         internalBoard.remove(getSquare(position.getRow(), position.getCol()));
         //and in with the new
         internalBoard.add(position);
     }
 
+    public boolean isValidMove(Square move){
+        return validBox(move) && validRow(move) && validCol(move);
+    }
+
     private boolean validBox(Square in) {
-        int rowBound = (int) ((in.getRow() - 1) / Math.sqrt(size));
+        int rowBound = (int) ((in.getRow()) / Math.sqrt(size));
         rowBound = (int) (rowBound * Math.sqrt(size));
 
-        int colBound = (int) ((in.getCol() - 1) / Math.sqrt(size));
+        int colBound = (int) ((in.getCol()) / Math.sqrt(size));
         colBound = (int) (colBound * Math.sqrt(size));
-
-//        for (Square square : internalBoard) {
-//            if((square.getRow() >= rowBound) && (square.getRow() < (rowBound + (int)Math.sqrt(size)))) {
-//                if ((square.getCol() >= colBound) && (square.getCol() < (colBound + (int) Math.sqrt(size)))) {
-//                    System.out.println("i = " + square.getCol());
-//                    System.out.println("j = " + square.getRow());
-//                    System.out.println("val = " + square.getVal());
-//                    if(square.getVal() == in.getVal()) return false;
-//                }
-//            }
-//        }
 
         for(int i = rowBound; i < rowBound + (int) Math.sqrt(size); i++){
             for(int j = colBound; j < colBound + (int) Math.sqrt(size); j++){
@@ -107,14 +103,14 @@ public class Board {
         return true;
     }
 
-    private boolean validRow(Square in) {
+    private boolean validCol(Square in) {
         for (int i = 0; i < size; i++) {
-            if(getSquare(in.getRow(), i).getVal() == in.getVal()) return false;
+            if((getSquare(in.getRow(), i).getVal()) == in.getVal()) return false;
         }
         return true;
     }
 
-    private boolean validCol(Square in) {
+    private boolean validRow(Square in) {
         for (int i = 0; i < size; i++) {
             if(getSquare(i, in.getCol()).getVal() == in.getVal()) return false;
         }
@@ -130,12 +126,12 @@ public class Board {
     }
 
     public Square getSelectedSquare(){
-        for (Square s :
-                internalBoard) {
+        for (Square s : internalBoard) {
             if (s.isSelected()) return s;
         }
         return null;
     }
+
 
     //decent test code..
 

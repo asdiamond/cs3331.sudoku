@@ -1,5 +1,7 @@
 package edu.utep.cscs3331.sudoku.console;
 
+import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.*;

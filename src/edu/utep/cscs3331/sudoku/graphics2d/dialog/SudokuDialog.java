@@ -9,7 +9,7 @@ import java.net.URL;
 
 import javax.swing.*;
 
-import edu.utep.cscs3331.sudoku.console.Square;
+import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
 import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
 
 /**
@@ -78,13 +78,19 @@ public class SudokuDialog extends JFrame {
      * @param number Clicked number (1-9), or 0 for "X".
      */
     private void numberClicked(int number) {
-        // WRITE YOUR CODE HERE ...
-        //
-//        board.updateBoard(new Square(boardPanel.selectedX, boardPanel.selectedY, number));
-        boardPanel.selected.setVal(number);
-        board.updateBoard(boardPanel.selected);
+        Square s = new Square(boardPanel.selected.getRow(), boardPanel.selected.getCol(), number);
+        if(board.isValidMove(s)){
+            board.updateBoard(s);
+            if(board.isSolved()){
+                showMessage("SOLVED");
+            }
+//            showMessage("Good move");
+        }
+        else {
+            //TODO play a sound
+            showMessage("Invalid move. Number clicked: " + number);
+        }
         repaint();
-        showMessage("Number clicked: " + number);
     }
     
     /**

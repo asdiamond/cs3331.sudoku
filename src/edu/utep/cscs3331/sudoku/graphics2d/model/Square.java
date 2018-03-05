@@ -1,4 +1,4 @@
-package edu.utep.cscs3331.sudoku.console;
+package edu.utep.cscs3331.sudoku.graphics2d.model;
 
 /**
  * Course: CS 2302

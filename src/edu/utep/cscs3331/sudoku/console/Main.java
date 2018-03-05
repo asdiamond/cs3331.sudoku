@@ -1,5 +1,7 @@
 package edu.utep.cscs3331.sudoku.console;
 
+import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
+
 public class Main {
     private ConsoleUI ui = new ConsoleUI();
     private Board board;

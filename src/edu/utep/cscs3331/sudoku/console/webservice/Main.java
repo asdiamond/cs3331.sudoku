@@ -51,7 +51,7 @@ public class Main {
                     System.out.println("square.x = " + square.x);
                     System.out.println("square.y = " + square.y);
                     System.out.println("square.value = " + square.value);
-                    board.updateBoard(new edu.utep.cscs3331.sudoku.console.Square(square.x, square.y, square.value));
+                    board.updateBoard(new edu.utep.cscs3331.sudoku.graphics2d.model.Square(square.x, square.y, square.value));
                     ui.displayBoard(board);
                     System.out.println();
 
@@ -69,7 +69,7 @@ public class Main {
         boolean quiting = false;
         while(!board.isSolved() && !quiting){
             ui.displayBoard(board);
-            edu.utep.cscs3331.sudoku.console.Square position = ui.promptMove();
+            edu.utep.cscs3331.sudoku.graphics2d.model.Square position = ui.promptMove();
             try{
                 board.updateBoard(position);
             }  catch (SudokuInvalidPositionException e) {
