@@ -31,7 +31,7 @@ class SquareTest {
 
     @Test
     void getCol() {
-        assertEquals(col, square.getRow());
+        assertEquals(col, square.getCol());
     }
 
     @Test

@@ -47,4 +47,19 @@ public class Square {
     public boolean isSelected(){return selected;}
 
     public void setSelected(boolean selected){this.selected = selected;}
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Square)) return false;
+        if (obj == this) return true;
+
+        Square s = (Square)obj;
+        return (s.col == this.col) && (s.row == this.row) &&
+               (s.val == this.val) && (s.selected == this.selected);
+    }
+
+    @Override
+    public String toString() {
+        return "row=" + this.row + "\ncol=" + this.col + "\nval=" + this.val + "\nselected=" + this.selected;
+    }
 }

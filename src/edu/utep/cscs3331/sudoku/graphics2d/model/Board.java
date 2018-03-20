@@ -97,6 +97,10 @@ public class Board {
      * @return true if a valid move.
      */
     public boolean isValidMove(Square move){
+        //bounds
+        if((move.getRow() >= this.size) || (move.getCol() >= this.size) || (move.getVal() > this.size) || (move.getVal() <= 0)){
+            return false;
+        }
         return validBox(move) && validRow(move) && validCol(move);
     }
 
@@ -152,7 +156,9 @@ public class Board {
      * @return value of square at address
      */
     public int getIndex(int row, int col){
-        return getSquare(row, col).getVal();
+        Square s = getSquare(row, col);
+        if(s == null) throw new NullPointerException("Square doesnt exist");
+        return s.getVal();
     }
 
     /**
@@ -160,7 +166,7 @@ public class Board {
      * @return
      */
     public int getSize(){
-        return size;
+        return this.size;
     }
 
     /**
@@ -173,30 +179,4 @@ public class Board {
         }
         return null;
     }
-
-
-    //decent test code..
-
-    /*
-    public static void main(String[] args) {
-        Board b = new Board();
-        ConsoleUI ui = new ConsoleUI();
-        int[][] practiceBoard = new int[][]{
-        {1, 2, 3, 0},
-        {3, 4, 1, 2},
-        {2, 3, 4, 1},
-        {4, 1, 2, 3}
-        };
-        for (int i = 0; i < practiceBoard.length; i++) {
-            for (int j = 0; j < practiceBoard.length; j++) {
-                b.updateBoard(new Square(i, j, practiceBoard[i][j]));
-            }
-        }
-
-        ui.displayBoard(b);
-        b.updateBoard(new Square(0, 3, 4));
-        ui.displayBoard(b);
-    }
-    */
-
 }
