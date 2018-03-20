@@ -1,6 +1,7 @@
 package edu.utep.cscs3331.sudoku.graphics2d.model;
 
-import org.junit.jupiter.api.AfterEach;
+
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,35 +14,47 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SquareTest {
 
+    Square square;
+    int row = 1;
+    int col = 1;
+    int val = 1;
+
     @BeforeEach
     void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
+        square = new Square(row, col, val);
     }
 
     @Test
     void getRow() {
+        assertEquals(row, square.getRow());
     }
 
     @Test
     void getCol() {
+        assertEquals(col, square.getRow());
     }
 
     @Test
     void getVal() {
+        assertEquals(val, square.getVal());
     }
 
     @Test
     void setVal() {
+        int val = 100;
+        square.setVal(val);
+        assertEquals(val, square.getVal());
     }
 
     @Test
     void isSelected() {
+        assertEquals(false, square.isSelected());
     }
 
     @Test
     void setSelected() {
+        boolean selected = true;
+        square.setSelected(selected);
+        assertEquals(selected, square.isSelected());
     }
 }

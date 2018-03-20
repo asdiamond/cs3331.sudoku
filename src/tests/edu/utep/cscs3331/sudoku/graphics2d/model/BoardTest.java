@@ -13,9 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class BoardTest {
 
+    Board board = new Board();
+    
     @BeforeEach
     void setUp() {
-        Board board = new Board();
     }
 
     @AfterEach
@@ -25,6 +26,7 @@ class BoardTest {
 
     @Test
     void isSolved() {
+
     }
 
     @Test
