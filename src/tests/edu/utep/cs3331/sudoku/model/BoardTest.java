@@ -1,4 +1,4 @@
-package edu.utep.cscs3331.sudoku.graphics2d.model;
+package edu.utep.cs3331.sudoku.model;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

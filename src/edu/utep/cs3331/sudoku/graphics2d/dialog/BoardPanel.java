@@ -1,4 +1,4 @@
-package edu.utep.cscs3331.sudoku.graphics2d.dialog;
+package edu.utep.cs3331.sudoku.graphics2d.dialog;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,15 +8,15 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
-import edu.utep.cscs3331.sudoku.graphics2d.model.Board;
+import edu.utep.cs3331.sudoku.model.Square;
+import edu.utep.cs3331.sudoku.model.Board;
 
 /**
  * A special panel class to display a Sudoku board modeled by the
- * {@link edu.utep.cscs3331.sudoku.graphics2d.model.Board} class. You need to write code for
+ * {@link Board} class. You need to write code for
  * the paint() method.
  *
- * @see edu.utep.cscs3331.sudoku.graphics2d.model.Board
+ * @see Board
  * @author Yoonsik Cheon
  */
 @SuppressWarnings("serial")

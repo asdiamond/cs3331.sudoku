@@ -1,6 +1,7 @@
-package edu.utep.cscs3331.sudoku.console;
+package edu.utep.cs3331.sudoku.console;
 
-import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
+import edu.utep.cs3331.sudoku.model.Board;
+import edu.utep.cs3331.sudoku.model.Square;
 
 public class Main {
     private ConsoleUI ui = new ConsoleUI();
@@ -22,24 +23,19 @@ public class Main {
                 board = new Board(size);
                 validsize = true;
                 //if there are no problems start game
-            } catch (SudokuSizeInputException e) {
-                ui.promptQuit();
-                ui.promptInvalidInput();
+            } catch (IllegalArgumentException e) {
+                ui.promptIllegalArgument();
             }
         } while (!validsize);
 
-        boolean quiting = false;
-        while(!board.isSolved() && !quiting){
+        while (!board.isSolved()) {
             ui.displayBoard(board);
             Square userPosition = ui.promptMove();
-            try {
-                board.updateBoard(userPosition);
-            } catch (SudokuInvalidPositionException e) {
-                ui.promptInvalidInput();
-//                e.printStackTrace();
+            if (userPosition == null) {
+                //user wants to quit
+                if (ui.promptQuit()) break;
             }
-            ui.displayBoard(board);
-            quiting = ui.promptQuit();
+            board.updateBoard(userPosition);
         }
         //couldve just quit and not solved
         if(board.isSolved()) ui.showMessage("Solved!");

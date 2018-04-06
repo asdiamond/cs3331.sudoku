@@ -1,6 +1,7 @@
-package edu.utep.cscs3331.sudoku.console.webservice;
+package edu.utep.cs3331.sudoku.console.webservice;
 
-import edu.utep.cscs3331.sudoku.console.*;
+import edu.utep.cs3331.sudoku.console.ConsoleUI;
+import edu.utep.cs3331.sudoku.model.Board;
 
 /**
  * Author: Aleksandr Diamond on 1/29/2018
@@ -37,9 +38,9 @@ public class Main {
                 board = new Board(size);
                 level = ui.promptLevel(info.levels);
                 break;
-            } catch (SudokuSizeInputException | NumberFormatException e) {
+            } catch (IllegalArgumentException e) {
                 ui.promptQuit();
-                ui.promptInvalidInput();
+                ui.promptIllegalArgument();
             }
         }
         //if here we have valid size and level
@@ -47,34 +48,34 @@ public class Main {
         PuzzleRequest.Puzzle puzzle = new PuzzleRequest(size, level).query();
         if(puzzle.getResponse()){
             for (Square square : puzzle.getSquares()) {
-                try {
+//                try {
                     System.out.println("square.x = " + square.x);
                     System.out.println("square.y = " + square.y);
                     System.out.println("square.value = " + square.value);
-                    board.updateBoard(new edu.utep.cscs3331.sudoku.graphics2d.model.Square(square.x, square.y, square.value));
+                board.updateBoard(new edu.utep.cs3331.sudoku.model.Square(square.x, square.y, square.value));
                     ui.displayBoard(board);
                     System.out.println();
 
                     //returns 0 based indexes..
-                } catch (SudokuInvalidPositionException e) {
+//                } catch (SudokuInvalidPositionException e) {
                     //definitely should NOT happen...
                     //means an invalid position was given by the web service
                     //nonetheless exception must be handled
 //                    e.printStackTrace();
-                    continue;
-                }
+//                    continue;
+//                }
             }
         }
         //board is now update from web service
         boolean quiting = false;
         while(!board.isSolved() && !quiting){
             ui.displayBoard(board);
-            edu.utep.cscs3331.sudoku.graphics2d.model.Square position = ui.promptMove();
-            try{
+            edu.utep.cs3331.sudoku.model.Square position = ui.promptMove();
+//            try{
                 board.updateBoard(position);
-            }  catch (SudokuInvalidPositionException e) {
-                ui.promptInvalidInput();
-            }
+//            }  catch (SudokuInvalidPositionException e) {
+            ui.promptIllegalArgument();
+//            }
             ui.displayBoard(board);
             quiting = ui.promptQuit();
         }

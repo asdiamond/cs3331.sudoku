@@ -1,5 +1,4 @@
-package edu.utep.cscs3331.sudoku.graphics2d.model;
-import edu.utep.cscs3331.sudoku.console.SudokuSizeInputException;
+package edu.utep.cs3331.sudoku.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +23,8 @@ public class Board {
      *
      * @param size the size of the board. 4 or 9 are valid.
      */
-    public Board(int size) {
-//        validateSize(size);
+    public Board(int size) throws IllegalArgumentException {
+        validateSize(size);
         this.size = size;
         internalBoard = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
@@ -69,12 +68,9 @@ public class Board {
         return null;
     }
 
-    private void validateSize(int size) throws SudokuSizeInputException {
-        if(size == 4 || size == 9){
-            return;
-        }
-        else {
-            throw new SudokuSizeInputException("Invalid input");
+    private void validateSize(int size) throws IllegalArgumentException {
+        if (!(size == 4 || size == 9)) {
+            throw new IllegalArgumentException("Invalid input");
         }
     }
 

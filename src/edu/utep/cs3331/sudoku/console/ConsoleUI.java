@@ -1,6 +1,7 @@
-package edu.utep.cscs3331.sudoku.console;
+package edu.utep.cs3331.sudoku.console;
 
-import edu.utep.cscs3331.sudoku.graphics2d.model.Square;
+import edu.utep.cs3331.sudoku.model.Board;
+import edu.utep.cs3331.sudoku.model.Square;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -25,12 +26,12 @@ public class ConsoleUI {
         out.println("Welcome to sudoku");
     }
 
-    public int promptSize() throws SudokuSizeInputException {
+    public int promptSize() throws IllegalArgumentException {
         out.println("Please enter a valid size (4 or 9)");
         try{
             return Integer.parseInt(input.nextLine());
         } catch(NumberFormatException e){//will work for strings, or empty space
-            throw new SudokuSizeInputException("Input not a number");
+            throw new IllegalArgumentException("Input not a number");
         }
     }
 
@@ -52,20 +53,7 @@ public class ConsoleUI {
         out.println(message);
     }
 
-    //different board packages
     public void displayBoard(Board board){
-        //TODO implement this properly
-        //and make it pretty.
-        for(int i = 0; i < board.getSize(); i++){
-            for (int j = 0; j < board.getSize(); j++) {
-                out.print(board.getIndex(i, j) + "  ");
-            }
-            out.println();
-        }
-        out.println();
-    }
-
-    public void displayBoard(edu.utep.cscs3331.sudoku.graphics2d.model.Board board){
         for(int i = 0; i < board.getSize(); i++){
             for (int j = 0; j < board.getSize(); j++) {
                 out.print(board.getIndex(i, j) + "  ");
@@ -77,9 +65,11 @@ public class ConsoleUI {
 
     public Square promptMove(){
         //FIXME needs to be more safe...
-        out.println("Enter the row and column separated by a space example: row col val");
-        String[] rawInput = input.nextLine().trim().split("\\s+");
-        return new Square(Integer.parseInt(rawInput[0]) - 1, Integer.parseInt(rawInput[1]) - 1, Integer.parseInt(rawInput[2]));
+        out.println("Enter the row and column separated by a space example: row col val or -1 to quit");
+        String rawInput = input.nextLine().trim();
+        if (rawInput.equalsIgnoreCase("-1")) return null;
+        String[] rawMove = rawInput.split("\\s+");
+        return new Square(Integer.parseInt(rawMove[0]) - 1, Integer.parseInt(rawMove[1]) - 1, Integer.parseInt(rawMove[2]));
     }
 
     public boolean promptQuit(){
@@ -87,7 +77,7 @@ public class ConsoleUI {
         return input.nextLine().trim().equalsIgnoreCase("quit");
     }
 
-    public void promptInvalidInput() {
+    public void promptIllegalArgument() {
         out.println("invalid input, try again");
     }
 
