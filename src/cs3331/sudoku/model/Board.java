@@ -1,4 +1,4 @@
-package edu.utep.cs3331.sudoku.model;
+package cs3331.sudoku.model;
 
 import java.util.ArrayList;
 import java.util.List;

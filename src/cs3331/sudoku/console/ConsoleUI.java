@@ -1,7 +1,7 @@
-package edu.utep.cs3331.sudoku.console;
+package cs3331.sudoku.console;
 
-import edu.utep.cs3331.sudoku.model.Board;
-import edu.utep.cs3331.sudoku.model.Square;
+import cs3331.sudoku.model.Board;
+import cs3331.sudoku.model.Square;
 
 import java.io.InputStream;
 import java.io.PrintStream;

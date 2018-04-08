@@ -1,7 +1,7 @@
-package edu.utep.cs3331.sudoku.console.webservice;
+package cs3331.sudoku.console.webservice;
 
-import edu.utep.cs3331.sudoku.console.ConsoleUI;
-import edu.utep.cs3331.sudoku.model.Board;
+import cs3331.sudoku.model.Board;
+import cs3331.sudoku.console.ConsoleUI;
 
 /**
  * Author: Aleksandr Diamond on 1/29/2018
@@ -52,7 +52,7 @@ public class Main {
                     System.out.println("square.x = " + square.x);
                     System.out.println("square.y = " + square.y);
                     System.out.println("square.value = " + square.value);
-                board.updateBoard(new edu.utep.cs3331.sudoku.model.Square(square.x, square.y, square.value));
+                board.updateBoard(new cs3331.sudoku.model.Square(square.x, square.y, square.value));
                     ui.displayBoard(board);
                     System.out.println();
 
@@ -70,7 +70,7 @@ public class Main {
         boolean quiting = false;
         while(!board.isSolved() && !quiting){
             ui.displayBoard(board);
-            edu.utep.cs3331.sudoku.model.Square position = ui.promptMove();
+            cs3331.sudoku.model.Square position = ui.promptMove();
 //            try{
                 board.updateBoard(position);
 //            }  catch (SudokuInvalidPositionException e) {

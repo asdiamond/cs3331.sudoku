@@ -1,4 +1,4 @@
-package edu.utep.cs3331.sudoku.graphics2d.dialog;
+package cs3331.sudoku.graphics2d.dialog;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import edu.utep.cs3331.sudoku.model.Square;
-import edu.utep.cs3331.sudoku.model.Board;
+import cs3331.sudoku.model.Square;
+import cs3331.sudoku.model.Board;
 
 /**
  * A special panel class to display a Sudoku board modeled by the

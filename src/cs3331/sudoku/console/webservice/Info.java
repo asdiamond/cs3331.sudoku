@@ -1,4 +1,4 @@
-package edu.utep.cs3331.sudoku.console.webservice;
+package cs3331.sudoku.console.webservice;
 import com.google.gson.Gson;
 
 public class Info {

@@ -1,4 +1,4 @@
-package edu.utep.cs3331.sudoku.model;
+package cs3331.sudoku.model;
 
 /**
  * Author: Aleksandr Diamond on 8/28/2017

@@ -1,4 +1,4 @@
-package edu.utep.cs3331.sudoku.graphics2d.dialog;
+package cs3331.sudoku.graphics2d.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,10 +11,8 @@ import java.net.URL;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
-import edu.utep.cs3331.sudoku.model.Board;
-import edu.utep.cs3331.sudoku.model.Square;
-import edu.utep.cs3331.sudoku.model.Square;
-import edu.utep.cs3331.sudoku.model.Board;
+import cs3331.sudoku.model.Board;
+import cs3331.sudoku.model.Square;
 
 /**
  * A dialog template for playing simple Sudoku games.
@@ -88,7 +86,7 @@ public class SudokuDialog extends JFrame {
         if(board.isValidMove(s)){
             board.updateBoard(s);
             if(board.isSolved()){
-                playSound("edu/utep/cs3331/sudoku/graphics2d/audio/ta-da.wav");
+                playSound("cs3331/sudoku/graphics2d/audio/ta-da.wav");
                 int result = JOptionPane.showConfirmDialog(null, "Congrats Buddy. Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_OPTION){
                     this.board = new Board();
@@ -101,7 +99,7 @@ public class SudokuDialog extends JFrame {
             }
         }
         else {
-            playSound("edu/utep/cs3331/sudoku/graphics2d/audio/error.wav");
+            playSound("cs3331/sudoku/graphics2d/audio/error.wav");
             showMessage("Invalid move. Number clicked: " + number);
         }
         repaint();
@@ -151,7 +149,7 @@ public class SudokuDialog extends JFrame {
 
     /** Configure the UI. */
     private void configureUI() {
-        setIconImage(createImageIcon("edu/utep/cs3331/sudoku/graphics2d/image/sudoku.png").getImage());
+        setIconImage(createImageIcon("cs3331/sudoku/graphics2d/image/sudoku.png").getImage());
         setLayout(new BorderLayout());
         
         JPanel buttons = makeControlPanel();
