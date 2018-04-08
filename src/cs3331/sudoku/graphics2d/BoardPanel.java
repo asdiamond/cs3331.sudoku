@@ -1,4 +1,4 @@
-package cs3331.sudoku.graphics2d.dialog;
+package cs3331.sudoku.graphics2d;
 
 import java.awt.Color;
 import java.awt.Dimension;

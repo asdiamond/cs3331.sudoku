@@ -1,4 +1,4 @@
-package cs3331.sudoku.graphics2d.dialog;
+package cs3331.sudoku.graphics2d;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -86,7 +86,7 @@ public class SudokuDialog extends JFrame {
         if(board.isValidMove(s)){
             board.updateBoard(s);
             if(board.isSolved()){
-                playSound("cs3331/sudoku/graphics2d/audio/ta-da.wav");
+                playSound("cs3331/sudoku/resources/audio/ta-da.wav");
                 int result = JOptionPane.showConfirmDialog(null, "Congrats Buddy. Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_OPTION){
                     this.board = new Board();
@@ -99,7 +99,7 @@ public class SudokuDialog extends JFrame {
             }
         }
         else {
-            playSound("cs3331/sudoku/graphics2d/audio/error.wav");
+            playSound("cs3331/sudoku/resources/audio/error.wav");
             showMessage("Invalid move. Number clicked: " + number);
         }
         repaint();
@@ -149,7 +149,7 @@ public class SudokuDialog extends JFrame {
 
     /** Configure the UI. */
     private void configureUI() {
-        setIconImage(createImageIcon("cs3331/sudoku/graphics2d/image/sudoku.png").getImage());
+        setIconImage(createImageIcon("cs3331/sudoku/resources/image/sudoku.png").getImage());
         setLayout(new BorderLayout());
         
         JPanel buttons = makeControlPanel();
