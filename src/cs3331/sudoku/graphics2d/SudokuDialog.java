@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.sound.sampled.*;
@@ -27,11 +28,13 @@ public class SudokuDialog extends JFrame {
     /** Default dimension of the dialog. */
     private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
 
+    private final static String RES_DIR = "../resources/";
+
     /** Image directory */
-    private final static String IMAGE_DIR = "../image/";
+    private final static String IMAGE_DIR = RES_DIR + "image/";
 
     /** Audio directory */
-    private final static String AUDIO_DIR = "../audio/";
+    private final static String AUDIO_DIR = RES_DIR + "audio/";
 
     /** Sudoku board. */
     private Board board;
@@ -86,7 +89,7 @@ public class SudokuDialog extends JFrame {
         if(board.isValidMove(s)){
             board.updateBoard(s);
             if(board.isSolved()){
-                playSound("cs3331/sudoku/resources/audio/ta-da.wav");
+                playSound(AUDIO_DIR + "error.wav");
                 int result = JOptionPane.showConfirmDialog(null, "Congrats Buddy. Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_OPTION){
                     this.board = new Board();
@@ -99,28 +102,10 @@ public class SudokuDialog extends JFrame {
             }
         }
         else {
-            playSound("cs3331/sudoku/resources/audio/error.wav");
+            playSound(AUDIO_DIR + "error.wav");
             showMessage("Invalid move. Number clicked: " + number);
         }
         repaint();
-    }
-
-    private void playSound(String fileName){
-        Clip clip;
-        try {
-            URL audioUrl = getClass().getResource(AUDIO_DIR + fileName);
-            AudioInputStream is = AudioSystem.getAudioInputStream(new File(String.valueOf(audioUrl)));
-            DataLine.Info info = new DataLine.Info(Clip.class, is.getFormat());
-            clip = (Clip)AudioSystem.getLine(info);
-            clip.open(is);
-            clip.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -149,7 +134,7 @@ public class SudokuDialog extends JFrame {
 
     /** Configure the UI. */
     private void configureUI() {
-        setIconImage(createImageIcon("cs3331/sudoku/resources/image/sudoku.png").getImage());
+//        setIconImage(createImageIcon(IMAGE_DIR + "sudoku.png").getImage());
         setLayout(new BorderLayout());
         
         JPanel buttons = makeControlPanel();
@@ -207,6 +192,36 @@ public class SudokuDialog extends JFrame {
             return new ImageIcon(imageUrl);
         }
         return null;
+    }
+
+    /**
+     * return the base URL, the directory containing SudokuDialog
+     */
+    private URL getCodeBase() {
+        return getClass().getResource("/");
+    }
+
+    public void playSound(String fileName) {
+        playSound(getCodeBase(), fileName);
+    }
+
+    private void playSound(URL url, String fileName) {
+        try {
+            playSound(new URL(url, fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void playSound(URL url) {
+        try {
+            AudioInputStream in = AudioSystem.getAudioInputStream(url);
+            Clip clip = AudioSystem.getClip();
+            clip.open(in);
+            clip.start();
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
