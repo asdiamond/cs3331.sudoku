@@ -26,42 +26,43 @@ import cs3331.sudoku.model.Square;
 public class SudokuDialog extends JFrame {
 
     /** Default dimension of the dialog. */
-    private final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
+    protected final static Dimension DEFAULT_SIZE = new Dimension(310, 430);
 
-    private final static String RES_DIR = "../resources/";
+    protected final static String RES_DIR = "../resources/";
 
     /** Image directory */
-    private final static String IMAGE_DIR = RES_DIR + "image/";
+    protected final static String IMAGE_DIR = RES_DIR + "image/";
 
     /** Audio directory */
-    private final static String AUDIO_DIR = RES_DIR + "audio/";
+    protected final static String AUDIO_DIR = RES_DIR + "audio/";
 
     /** Sudoku board. */
-    private Board board;
+    protected Board board;
 
     /** Special panel to display a Sudoku board. */
-    private BoardPanel boardPanel;
+    protected BoardPanel boardPanel;
 
     /** Message bar to display various messages. */
-    private JLabel msgBar = new JLabel("");
+    protected JLabel msgBar = new JLabel("");
 
     /** Create a new dialog. */
     public SudokuDialog() {
-    	this(DEFAULT_SIZE);
+        this(DEFAULT_SIZE, "sudoku");
     }
     
     /** Create a new dialog of the given screen dimension. */
-    public SudokuDialog(Dimension dim) {
-        super("Sudoku");
+    public SudokuDialog(Dimension dim, String title) {
+        super(title);
         setSize(dim);
-        //wasnt necessary in demo code. May need to refactor.
-        board = new Board(9);
-        boardPanel = new BoardPanel(board, this::boardClicked);
+        initVars();
         configureUI();
-        //setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
-        //setResizable(false);
+    }
+
+    protected void initVars() {
+        this.board = new Board(9);
+        this.boardPanel = new BoardPanel(board, this::boardClicked);
     }
 
     /**
@@ -69,7 +70,7 @@ public class SudokuDialog extends JFrame {
      * @param x 0-based row index of the clicked square.
      * @param y 0-based column index of the clicked square.
      */
-    private void boardClicked(int x, int y) {
+    protected void boardClicked(int x, int y) {
         //out with the old
         if(boardPanel.selected != null){
             boardPanel.selected.setSelected(false);
@@ -84,7 +85,7 @@ public class SudokuDialog extends JFrame {
      * Callback to be invoked when a number button is clicked.
      * @param number Clicked number (1-9), or 0 for "X".
      */
-    private void numberClicked(int number) {
+    protected void numberClicked(int number) {
         Square s = new Square(boardPanel.selected.getRow(), boardPanel.selected.getCol(), number);
         if(board.isValidMove(s)){
             board.updateBoard(s);
@@ -115,7 +116,7 @@ public class SudokuDialog extends JFrame {
      * accordingly.
      * @param size Requested puzzle size, either 4 or 9.
      */
-    private void newClicked(int size) {
+    protected void newClicked(int size) {
         int result = JOptionPane.showConfirmDialog(null, "Start a new game?", "Warning", JOptionPane.YES_NO_OPTION);
         if(result == JOptionPane.YES_OPTION){
             this.board = new Board(size);
@@ -128,12 +129,12 @@ public class SudokuDialog extends JFrame {
      * Display the given string in the message bar.
      * @param msg Message to be displayed.
      */
-    private void showMessage(String msg) {
+    protected void showMessage(String msg) {
         msgBar.setText(msg);
     }
 
     /** Configure the UI. */
-    private void configureUI() {
+    protected void configureUI() {
 //        setIconImage(createImageIcon(IMAGE_DIR + "sudoku.png").getImage());
         setLayout(new BorderLayout());
         
@@ -153,7 +154,7 @@ public class SudokuDialog extends JFrame {
     }
       
     /** Create a control panel consisting of new and number buttons. */
-    private JPanel makeControlPanel() {
+    protected JPanel makeControlPanel() {
     	JPanel newButtons = new JPanel(new FlowLayout());
         JButton new4Button = new JButton("New (4x4)");
         for (JButton button: new JButton[] { new4Button, new JButton("New (9x9)") }) {

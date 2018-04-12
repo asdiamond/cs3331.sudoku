@@ -24,7 +24,7 @@ public class BoardPanel extends JPanel {
 
     //the square that is currently selected
     //null if none
-    public Square selected;
+    Square selected;
 
 	public interface ClickListener {
 		
@@ -40,7 +40,7 @@ public class BoardPanel extends JPanel {
 	private static final Color boardColor = new Color(247, 223, 150);
 
     /** Board to be displayed. */
-    private Board board;
+    protected Board board;
 
     /** Width and height of a square in pixels. */
     private int squareSize;
@@ -69,7 +69,7 @@ public class BoardPanel extends JPanel {
      * The indexes are encoded and returned as x*100 + y, 
      * where x and y are 0-based column/row indexes.
      */
-    private int locateSquaree(int x, int y) {
+    protected int locateSquaree(int x, int y) {
     	if (x < 0 || x > board.getSize() * squareSize
     			|| y < 0 || y > board.getSize() * squareSize) {
     		return -1;
