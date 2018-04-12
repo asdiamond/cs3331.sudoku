@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.sound.sampled.*;
@@ -133,15 +132,16 @@ public class SudokuDialog extends JFrame {
         msgBar.setText(msg);
     }
 
+    protected JPanel northJPanel;
     /** Configure the UI. */
     protected void configureUI() {
 //        setIconImage(createImageIcon(IMAGE_DIR + "sudoku.png").getImage());
         setLayout(new BorderLayout());
-        
-        JPanel buttons = makeControlPanel();
+
+        northJPanel = makeControlPanel();
         // boarder: top, left, bottom, right
-        buttons.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
-        add(buttons, BorderLayout.NORTH);
+        northJPanel.setBorder(BorderFactory.createEmptyBorder(10, 16, 0, 16));
+        add(northJPanel, BorderLayout.NORTH);
         
         JPanel board = new JPanel();
         board.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
@@ -152,8 +152,10 @@ public class SudokuDialog extends JFrame {
         msgBar.setBorder(BorderFactory.createEmptyBorder(10,16,10,0));
         add(msgBar, BorderLayout.SOUTH);
     }
-      
-    /** Create a control panel consisting of new and number buttons. */
+
+    /**
+     * Create a control panel consisting of new and number northJPanel.
+     */
     protected JPanel makeControlPanel() {
     	JPanel newButtons = new JPanel(new FlowLayout());
         JButton new4Button = new JButton("New (4x4)");
@@ -165,8 +167,8 @@ public class SudokuDialog extends JFrame {
             newButtons.add(button);
     	}
     	newButtons.setAlignmentX(LEFT_ALIGNMENT);
-        
-    	// buttons labeled 1, 2, ..., 9, and X.
+
+        // northJPanel labeled 1, 2, ..., 9, and X.
     	JPanel numberButtons = new JPanel(new FlowLayout());
     	int maxNumber = board.getSize() + 1;
     	for (int i = 1; i <= maxNumber; i++) {
