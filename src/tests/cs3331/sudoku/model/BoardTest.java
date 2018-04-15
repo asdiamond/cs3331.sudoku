@@ -194,4 +194,19 @@ class BoardTest {
         board.updateBoard(s1);
         assertEquals(s1, board.getSelectedSquare());
     }
+
+    @Test
+    void cloneTest() {
+        Board clone = (Board) board.clone();
+        assertEquals(clone.getSize(), board.getSize());
+
+        for (int row = 0; row < board.getSize(); row++) {
+            for (int col = 0; col < board.getSize(); col++) {
+                var move = board.getSquare(row, col);
+                var cloneMove = clone.getSquare(row, col);
+
+                assertEquals(move, cloneMove);
+            }
+        }
+    }
 }

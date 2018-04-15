@@ -50,7 +50,7 @@ public class Square {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Square)) return false;
+        if (obj.getClass() != getClass()) return false;
         if (obj == this) return true;
 
         Square s = (Square)obj;
@@ -61,5 +61,10 @@ public class Square {
     @Override
     public String toString() {
         return "row=" + this.row + "\ncol=" + this.col + "\nval=" + this.val + "\nselected=" + this.selected;
+    }
+
+    @Override
+    public Square clone() {
+        return new Square(row, col, val);
     }
 }

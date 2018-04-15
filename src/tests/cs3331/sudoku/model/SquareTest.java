@@ -48,7 +48,7 @@ class SquareTest {
 
     @Test
     void isSelected() {
-        assertEquals(false, square.isSelected());
+        assertFalse(square.isSelected());
     }
 
     @Test
@@ -56,5 +56,10 @@ class SquareTest {
         boolean selected = true;
         square.setSelected(selected);
         assertEquals(selected, square.isSelected());
+    }
+
+    @Test
+    void cloneTest() {
+        assertEquals(square, square.clone());
     }
 }

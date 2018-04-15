@@ -103,7 +103,7 @@ public class Board {
         int row = move.getRow();
         int col = move.getCol();
         int val = move.getVal();
-        if ((row >= this.size) || (row < 0) || (col >= this.size) || (col < 0) || (val > this.size) || (val <= 0)) {
+        if ((row >= this.size) || (row < 0) || (col >= this.size) || (col < 0) || (val > this.size) || (val < 0)) {
             return false;
         }
         return validBox(move) && validRow(move) && validCol(move);
@@ -185,13 +185,13 @@ public class Board {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() {
         Board clone = new Board(this.size);
-        for (int row = 0; row < this.size; row++) {
-            for (int col = 0; col < this.size; col++) {
-                clone.updateBoard(getSquare(row, col));
-            }
+        ArrayList<Square> squares = new ArrayList<>(internalBoard.size());
+        for (Square s : internalBoard) {
+            squares.add(s.clone());
         }
+        clone.internalBoard = squares;
         return clone;
     }
 }

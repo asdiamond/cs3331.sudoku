@@ -17,5 +17,5 @@ public interface Solver {
     /**
      * @param board the board to be solved
      */
-    boolean solve(Board board);
+    void solve(Board board);
 }
