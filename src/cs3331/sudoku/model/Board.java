@@ -1,5 +1,8 @@
 package cs3331.sudoku.model;
 
+import cs3331.sudoku.solver.BackTrackingSolver;
+import cs3331.sudoku.solver.Solver;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,20 @@ public class Board {
                 //so it is non-null
                 internalBoard.add(new Square(i, j, UNASSIGNED));
             }
+        }
+    }
+
+
+    /**
+     * @param size            the size of the board.
+     * @param partiallyFilled true to return partially filled board
+     */
+    public Board(int size, boolean partiallyFilled) {
+        this(size);
+        if (partiallyFilled) {
+            Solver solver = new BackTrackingSolver();
+            solver.solve(this);
+            //TODO finish this implementation
         }
     }
 
@@ -86,7 +103,7 @@ public class Board {
     public void updateBoard(Square position) {
         //must be a valid move
         if (!isValidMove(position))
-            throw new IllegalArgumentException("updateBoard(Square) cannot be called with an invalid move.");
+            throw new IllegalArgumentException("updateBoard(Square) cannot be called with an invalid move:\n" + position.toString());
         //out with the old..
         internalBoard.remove(getSquare(position.getRow(), position.getCol()));
         //and in with the new
@@ -103,9 +120,12 @@ public class Board {
         int row = move.getRow();
         int col = move.getCol();
         int val = move.getVal();
+
+
         if ((row >= this.size) || (row < 0) || (col >= this.size) || (col < 0) || (val > this.size) || (val < 0)) {
             return false;
         }
+//        if(val == UNASSIGNED) return true;//removing is always a valid move
         return validBox(move) && validRow(move) && validCol(move);
     }
 

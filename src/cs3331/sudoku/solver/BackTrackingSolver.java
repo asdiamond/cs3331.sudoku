@@ -26,8 +26,11 @@ public class BackTrackingSolver implements Solver {
 
     private boolean backtrackingSolve(Board board) {
         for (int row = 0; row < board.getSize(); row++) {
+
             for (int col = 0; col < board.getSize(); col++) {
+
                 if (board.getSquare(row, col).getVal() == Board.UNASSIGNED) {
+
                     for (int val = 1; val <= board.getSize(); val++) {
                         Square move = new Square(row, col, val);
                         if (board.isValidMove(move)) {
@@ -35,7 +38,7 @@ public class BackTrackingSolver implements Solver {
                             if (backtrackingSolve(board)) {
                                 return true;
                             } else {
-                                //undo move if it is invalid
+//                                undo move if it is invalid
                                 Square undo = new Square(row, col, Board.UNASSIGNED);
                                 board.updateBoard(undo);
                             }

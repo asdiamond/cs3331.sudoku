@@ -1,6 +1,8 @@
 package cs3331.sudoku.advancedgraphics2d;
 
 import cs3331.sudoku.model.Board;
+import cs3331.sudoku.solver.BackTrackingSolver;
+import cs3331.sudoku.solver.Solver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,8 @@ import java.awt.event.KeyEvent;
  */
 public class SudokuDialog extends cs3331.sudoku.graphics2d.SudokuDialog {
 
+    Solver solver;
+
     protected SudokuDialog() {
         this(DEFAULT_SIZE);
     }
@@ -25,7 +29,9 @@ public class SudokuDialog extends cs3331.sudoku.graphics2d.SudokuDialog {
 
     @Override
     protected void initVars() {
-        this.board = new Board(9);
+        this.solver = new BackTrackingSolver();
+        //order matters here.
+        this.board = new Board(9, true);
         this.boardPanel = new BoardPanel(board, this::boardClicked);
     }
 

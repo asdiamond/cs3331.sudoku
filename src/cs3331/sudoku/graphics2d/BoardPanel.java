@@ -125,7 +125,7 @@ public class BoardPanel extends JPanel {
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 //i is x, j is y according to board
-                if(board.getIndex(i, j) == 0){
+                if (board.getIndex(i, j) == Board.UNASSIGNED) {
                     continue;
                 }
                 g.drawString(board.getIndex(i, j) + "", (i * squareSize), ((j + 1) * squareSize));

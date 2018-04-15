@@ -19,6 +19,11 @@ public class Square {
     private boolean selected;
 
     /**
+     * If the square is constant
+     */
+    private boolean constant;
+
+    /**
      * Constructs a square from params
      * @param row Row address of square
      * @param col Column address of square
@@ -28,6 +33,19 @@ public class Square {
         this.row = row;
         this.col = col;
         this.val = val;
+    }
+
+    /**
+     * Constructs a square from params
+     *
+     * @param row      Row address of square
+     * @param col      Column address of square
+     * @param val      Value of square
+     * @param constant Use true to generate a constant square, false otherwise
+     */
+    public Square(int row, int col, int val, boolean constant) {
+        this(row, col, val);
+        this.constant = constant;
     }
 
     public int getRow() {

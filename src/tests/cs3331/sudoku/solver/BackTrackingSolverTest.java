@@ -15,15 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class BackTrackingSolverTest extends SudokuDialog {
 
-    Board board;
-    Solver solver;
+    private Board board4;
+    private Board board9;
+    private Solver solver;
 
     @BeforeEach
     void setUp() {
-        board = new Board(4);
+        board4 = new Board(4);
         solver = new BackTrackingSolver();
         /*
-        full board:
+        full board4:
         1 2 3 4
         0 0 0 0
         2 3 4 1
@@ -31,26 +32,41 @@ class BackTrackingSolverTest extends SudokuDialog {
          */
 
         /* 1 2 3 4 */
-        board.updateBoard(new Square(0, 0, 1));
-        board.updateBoard(new Square(0, 1, 2));
-        board.updateBoard(new Square(0, 2, 3));
-        board.updateBoard(new Square(0, 3, 4));
+        board4.updateBoard(new Square(0, 0, 1));
+        board4.updateBoard(new Square(0, 1, 2));
+        board4.updateBoard(new Square(0, 2, 3));
+        board4.updateBoard(new Square(0, 3, 4));
 
         /* 2 3 4 1 */
-        board.updateBoard(new Square(2, 0, 2));
-        board.updateBoard(new Square(2, 1, 3));
-        board.updateBoard(new Square(2, 2, 4));
-        board.updateBoard(new Square(2, 3, 1));
+        board4.updateBoard(new Square(2, 0, 2));
+        board4.updateBoard(new Square(2, 1, 3));
+        board4.updateBoard(new Square(2, 2, 4));
+        board4.updateBoard(new Square(2, 3, 1));
+
+
+        board9 = new Board(9);
+        board9.updateBoard(new Square(0, 0, 1));
     }
 
     @Test
-    void isSolvable() {
-        assertTrue(solver.isSolvable(board));
+    void isSolvable4() {
+        assertTrue(solver.isSolvable(board4));
     }
 
     @Test
-    void solve() {
-        solver.solve(board);
-        assertTrue(board.isSolved());
+    void isSolvable9() {
+        assertTrue(solver.isSolvable(board9));
+    }
+
+    @Test
+    void solve4() {
+        solver.solve(board4);
+        assertTrue(board4.isSolved());
+    }
+
+    @Test
+    void solve9() {
+        solver.solve(board9);
+        assertTrue(board9.isSolved());
     }
 }
