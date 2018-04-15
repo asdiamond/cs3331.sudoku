@@ -11,6 +11,7 @@ import java.util.List;
 public class Board {
     private int size;
     private List<Square> internalBoard;
+    public static final int UNASSIGNED = 0;
 
     /**
      * Default constructor with size 4
@@ -30,7 +31,7 @@ public class Board {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 //so it is non-null
-                internalBoard.add(new Square(i, j, 0));
+                internalBoard.add(new Square(i, j, UNASSIGNED));
             }
         }
     }
@@ -68,6 +69,10 @@ public class Board {
         return null;
     }
 
+    /**
+     * @param size size to be validated. Called from constructor.
+     * @throws IllegalArgumentException If size is invalid.
+     */
     private void validateSize(int size) throws IllegalArgumentException {
         if (!(size == 4 || size == 9)) {
             throw new IllegalArgumentException("Invalid input");
@@ -80,7 +85,8 @@ public class Board {
      */
     public void updateBoard(Square position) {
         //must be a valid move
-        if(!isValidMove(position)) return;
+        if (!isValidMove(position))
+            throw new IllegalArgumentException("updateBoard(Square) cannot be called with an invalid move.");
         //out with the old..
         internalBoard.remove(getSquare(position.getRow(), position.getCol()));
         //and in with the new
@@ -94,7 +100,10 @@ public class Board {
      */
     public boolean isValidMove(Square move){
         //bounds
-        if((move.getRow() >= this.size) || (move.getCol() >= this.size) || (move.getVal() > this.size) || (move.getVal() <= 0)){
+        int row = move.getRow();
+        int col = move.getCol();
+        int val = move.getVal();
+        if ((row >= this.size) || (row < 0) || (col >= this.size) || (col < 0) || (val > this.size) || (val <= 0)) {
             return false;
         }
         return validBox(move) && validRow(move) && validCol(move);
@@ -106,16 +115,15 @@ public class Board {
      * @return True if valid.
      */
     private boolean validBox(Square in) {
-        int rowBound = (int) ((in.getRow()) / Math.sqrt(size));
-        rowBound = (int) (rowBound * Math.sqrt(size));
+        int boxSize = (int) Math.sqrt(getSize());
+        int row = in.getRow() - (in.getRow() % boxSize);
+        int col = in.getCol() - (in.getCol() % boxSize);
 
-        int colBound = (int) ((in.getCol()) / Math.sqrt(size));
-        colBound = (int) (colBound * Math.sqrt(size));
-
-        for(int i = rowBound; i < rowBound + (int) Math.sqrt(size); i++){
-            for(int j = colBound; j < colBound + (int) Math.sqrt(size); j++){
-                Square s = getSquare(i, j);
-                if(s.getVal() == in.getVal()) return false;
+        for (int i = row; i < row + boxSize; i++) {
+            for (int j = col; j < col + boxSize; j++) {
+                if (getSquare(row, col).getVal() == in.getVal()) {
+                    return false;
+                }
             }
         }
         return true;
@@ -174,5 +182,16 @@ public class Board {
             if (s.isSelected()) return s;
         }
         return null;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Board clone = new Board(this.size);
+        for (int row = 0; row < this.size; row++) {
+            for (int col = 0; col < this.size; col++) {
+                clone.updateBoard(getSquare(row, col));
+            }
+        }
+        return clone;
     }
 }
