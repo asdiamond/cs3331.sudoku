@@ -13,19 +13,18 @@ public class BackTrackingSolver implements Solver {
 
     @Override
     public boolean isSolvable(Board board) {
-        Board clone = (Board) board.clone();
-
-        return false;
+        Board clone = board.clone();
+        return backtrackingSolve(clone);
     }
 
     @Override
     public void solve(Board board) {
         if (isSolvable(board)) {
-            solver(board);
+            backtrackingSolve(board);
         }
     }
 
-    private boolean solver(Board board) {
+    private boolean backtrackingSolve(Board board) {
         for (int row = 0; row < board.getSize(); row++) {
             for (int col = 0; col < board.getSize(); col++) {
                 if (board.getSquare(row, col).getVal() == Board.UNASSIGNED) {
@@ -33,7 +32,7 @@ public class BackTrackingSolver implements Solver {
                         Square move = new Square(row, col, val);
                         if (board.isValidMove(move)) {
                             board.updateBoard(move);
-                            if (solver(board)) {
+                            if (backtrackingSolve(board)) {
                                 return true;
                             } else {
                                 //undo move if it is invalid

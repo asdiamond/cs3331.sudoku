@@ -16,10 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class BackTrackingSolverTest extends SudokuDialog {
 
     Board board;
+    Solver solver;
 
     @BeforeEach
     void setUp() {
         board = new Board(4);
+        solver = new BackTrackingSolver();
         /*
         full board:
         1 2 3 4
@@ -43,9 +45,12 @@ class BackTrackingSolverTest extends SudokuDialog {
 
     @Test
     void isSolvable() {
+        assertTrue(solver.isSolvable(board));
     }
 
     @Test
     void solve() {
+        solver.solve(board);
+        assertTrue(board.isSolved());
     }
 }

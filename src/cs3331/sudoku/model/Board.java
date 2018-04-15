@@ -185,7 +185,7 @@ public class Board {
     }
 
     @Override
-    public Object clone() {
+    public Board clone() {
         Board clone = new Board(this.size);
         ArrayList<Square> squares = new ArrayList<>(internalBoard.size());
         for (Square s : internalBoard) {
