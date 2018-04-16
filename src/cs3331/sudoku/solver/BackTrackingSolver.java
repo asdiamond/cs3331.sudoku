@@ -14,36 +14,34 @@ public class BackTrackingSolver implements Solver {
     @Override
     public boolean isSolvable(Board board) {
         Board clone = board.clone();
-        return backtrackingSolve(0, 0, clone);
+        return backtrackingSolve(clone);
     }
 
     @Override
     public void solve(Board board) {
         if (isSolvable(board)) {
-            backtrackingSolve(0, 0, board);
+            backtrackingSolve(board);
         }
     }
 
-    protected boolean backtrackingSolve(int i, int j, Board board) {
-        if (i == board.getSize()) {
-            i = 0;
-            if (++j == board.getSize()) return true;
-        }
-        if (board.getIndex(i, j) != Board.UNASSIGNED) {
-            return backtrackingSolve(i + 1, j, board);
-        }
+    protected boolean backtrackingSolve(Board board) {
+        for (int row = 0; row < board.getSize(); row++) {
+            for (int col = 0; col < board.getSize(); col++) {
+                if (board.getIndex(row, col) == Board.UNASSIGNED) {
+                    for (int val = 1; val <= board.getSize(); val++) {
+                        board.getSquare(row, col).setVal(val);
+                        var move = new Square(row, col, val);
+                        if (board.isValidMove(move) && backtrackingSolve(board)) {
+                            return true;
+                        }
 
-        for (int val = 1; val <= board.getSize(); ++val) {
-            var move = new Square(i, j, val);
-            if (board.isValidMove(move)) {
-                board.updateBoard(move);
-                if (backtrackingSolve(i + 1, j, board)) {
-                    return true;
+                        //backtrack
+                        board.getSquare(row, col).setVal(Board.UNASSIGNED);
+                    }
+                    return false;
                 }
             }
         }
-        board.getSquare(i, j).setVal(Board.UNASSIGNED);
-        return false;
-
+        return true;
     }
 }

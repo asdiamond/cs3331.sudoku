@@ -50,10 +50,10 @@ class BackTrackingSolverTest extends SudokuDialog {
         board4.updateBoard(new Square(2, 3, 1));
 
         /* 4 1 2 0 */
-        board4.updateBoard(new Square(1, 0, 4));
-        board4.updateBoard(new Square(1, 1, 1));
-        board4.updateBoard(new Square(1, 2, 2));
-        board4.updateBoard(new Square(1, 3, 0));
+        board4.updateBoard(new Square(3, 0, 4));
+        board4.updateBoard(new Square(3, 1, 1));
+        board4.updateBoard(new Square(3, 2, 2));
+//        board4.updateBoard(new Square(3, 3, 0));
 
 
         board9 = new Board(9);
@@ -72,19 +72,19 @@ class BackTrackingSolverTest extends SudokuDialog {
 
     @Test
     void solve4() {
-        solver.backtrackingSolve(0, 0, board4);
+        solver.backtrackingSolve(board4);
         assertTrue(board4.isSolved());
-    }
-
-    @Test
-    void solve9() {
-        solver.backtrackingSolve(0, 0, board9);
-//        assertTrue(board9.isSolved());
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 System.out.print(board.getSquare(i, j).getVal() + " ");
             }
             System.out.println();
         }
+    }
+
+    @Test
+    void solve9() {
+        solver.backtrackingSolve(board9);
+        assertTrue(board9.isSolved());
     }
 }
