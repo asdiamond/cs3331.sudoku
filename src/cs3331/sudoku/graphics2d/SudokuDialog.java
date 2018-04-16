@@ -132,60 +132,81 @@ public class SudokuDialog extends JFrame {
         msgBar.setText(msg);
     }
 
-    protected JPanel northJPanel;
     /** Configure the UI. */
     protected void configureUI() {
 //        setIconImage(createImageIcon(IMAGE_DIR + "sudoku.png").getImage());
         setLayout(new BorderLayout());
 
-        northJPanel = makeControlPanel();
+        JPanel controlPanel = makeControlPanel();
         // boarder: top, left, bottom, right
-        northJPanel.setBorder(BorderFactory.createEmptyBorder(10, 16, 0, 16));
-        add(northJPanel, BorderLayout.NORTH);
-        
+        controlPanel.setBorder(BorderFactory.createEmptyBorder(10, 16, 0, 16));
+        add(controlPanel, BorderLayout.NORTH);
+
+        createBoard();
+
+        createMessageBar();
+    }
+
+    protected void createMessageBar() {
+        msgBar.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 0));
+        add(msgBar, BorderLayout.SOUTH);
+    }
+
+    protected void createBoard() {
         JPanel board = new JPanel();
         board.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
         board.setLayout(new GridLayout(1,1));
         board.add(boardPanel);
         add(board, BorderLayout.CENTER);
-        
-        msgBar.setBorder(BorderFactory.createEmptyBorder(10,16,10,0));
-        add(msgBar, BorderLayout.SOUTH);
     }
 
     /**
      * Create a control panel consisting of new and number northJPanel.
      */
     protected JPanel makeControlPanel() {
-    	JPanel newButtons = new JPanel(new FlowLayout());
-        JButton new4Button = new JButton("New (4x4)");
-        for (JButton button: new JButton[] { new4Button, new JButton("New (9x9)") }) {
-        	button.setFocusPainted(false);
-            button.addActionListener(e -> {
-                newClicked(e.getSource() == new4Button ? 4 : 9);
-            });
-            newButtons.add(button);
-    	}
-    	newButtons.setAlignmentX(LEFT_ALIGNMENT);
+        JPanel newButtons = createNewButtons();
 
         // northJPanel labeled 1, 2, ..., 9, and X.
-    	JPanel numberButtons = new JPanel(new FlowLayout());
-    	int maxNumber = board.getSize() + 1;
-    	for (int i = 1; i <= maxNumber; i++) {
-            int number = i % maxNumber;
-            JButton button = new JButton(number == 0 ? "X" : String.valueOf(number));
-            button.setFocusPainted(false);
-            button.setMargin(new Insets(0,2,0,2));
-            button.addActionListener(e -> numberClicked(number));
-    		numberButtons.add(button);
-    	}
-    	numberButtons.setAlignmentX(LEFT_ALIGNMENT);
+//        JComponent numberButtons = createNumberButtons();
+        JComponent numberButtons = new JPanel(new FlowLayout());
+        createNumberButtons(numberButtons);
+        numberButtons.setAlignmentX(LEFT_ALIGNMENT);
 
-    	JPanel content = new JPanel();
-    	content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
+        JPanel content = new JPanel();
+        content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
         content.add(newButtons);
         content.add(numberButtons);
         return content;
+    }
+
+    /**
+     * @param numberButtons The component the number buttons will be created onto
+     */
+    protected void createNumberButtons(JComponent numberButtons) {
+        int maxNumber = board.getSize() + 1;
+        for (int i = 1; i <= maxNumber; i++) {
+            int number = i % maxNumber;
+            JButton button = new JButton(number == 0 ? "X" : String.valueOf(number));
+            button.setFocusPainted(false);
+            button.setMargin(new Insets(0, 2, 0, 2));
+            button.addActionListener(e -> numberClicked(number));
+            numberButtons.add(button);
+        }
+    }
+
+    private JPanel createNewButtons() {
+        JPanel newButtons = new JPanel(new FlowLayout());
+
+        JButton new4Button = new JButton("New (4x4)");
+        new4Button.setFocusPainted(false);
+        new4Button.addActionListener(e -> newClicked(4));
+        newButtons.add(new4Button);
+        JButton new9Button = new JButton("New (9x9)");
+        new9Button.setFocusPainted(false);
+        new9Button.addActionListener(e -> newClicked(9));
+        newButtons.add(new9Button);
+        newButtons.setAlignmentX(LEFT_ALIGNMENT);
+        return newButtons;
     }
 
     /** Create an image icon from the given image file. */
