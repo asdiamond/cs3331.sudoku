@@ -35,7 +35,8 @@ public class Board {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 //so it is non-null
-                internalBoard.add(new Square(i, j, UNASSIGNED));
+                Square square = new Square(i, j, UNASSIGNED, false);
+                internalBoard.add(square);
             }
         }
     }
@@ -56,7 +57,9 @@ public class Board {
                 int ranRow = new Random().nextInt(size);
                 int ranCol = new Random().nextInt(size);
                 getSquare(ranRow, ranCol).setVal(UNASSIGNED);
-                getSquare(ranRow, ranCol).setConstant(true);
+            }
+            for (Square s : internalBoard) {
+                if (s.getVal() != UNASSIGNED) s.setConstant(true);
             }
         }
     }

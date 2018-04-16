@@ -128,7 +128,13 @@ public class BoardPanel extends JPanel {
                 if (board.getIndex(i, j) == Board.UNASSIGNED) {
                     continue;
                 }
-                g.drawString(board.getIndex(i, j) + "", (i * squareSize), ((j + 1) * squareSize));
+                if (board.getSquare(i, j).isConstant()) {
+                    g.setColor(Color.RED);
+                    g.drawString(board.getIndex(i, j) + "", (i * squareSize), ((j + 1) * squareSize));
+                } else {
+                    g.setColor(Color.BLUE);
+                    g.drawString(board.getIndex(i, j) + "", (i * squareSize), ((j + 1) * squareSize));
+                }
             }
         }
 
