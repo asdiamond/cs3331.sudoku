@@ -85,4 +85,12 @@ public class Square {
     public Square clone() {
         return new Square(row, col, val);
     }
+
+    public boolean isConstant() {
+        return constant;
+    }
+
+    public void setConstant(boolean constant) {
+        this.constant = constant;
+    }
 }

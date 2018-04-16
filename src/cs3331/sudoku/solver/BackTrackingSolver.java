@@ -14,40 +14,36 @@ public class BackTrackingSolver implements Solver {
     @Override
     public boolean isSolvable(Board board) {
         Board clone = board.clone();
-        return backtrackingSolve(clone);
+        return backtrackingSolve(0, 0, clone);
     }
 
     @Override
     public void solve(Board board) {
         if (isSolvable(board)) {
-            backtrackingSolve(board);
+            backtrackingSolve(0, 0, board);
         }
     }
 
-    private boolean backtrackingSolve(Board board) {
-        for (int row = 0; row < board.getSize(); row++) {
+    protected boolean backtrackingSolve(int i, int j, Board board) {
+        if (i == board.getSize()) {
+            i = 0;
+            if (++j == board.getSize()) return true;
+        }
+        if (board.getIndex(i, j) != Board.UNASSIGNED) {
+            return backtrackingSolve(i + 1, j, board);
+        }
 
-            for (int col = 0; col < board.getSize(); col++) {
-
-                if (board.getSquare(row, col).getVal() == Board.UNASSIGNED) {
-
-                    for (int val = 1; val <= board.getSize(); val++) {
-                        Square move = new Square(row, col, val);
-                        if (board.isValidMove(move)) {
-                            board.updateBoard(move);
-                            if (backtrackingSolve(board)) {
-                                return true;
-                            } else {
-//                                undo move if it is invalid
-                                Square undo = new Square(row, col, Board.UNASSIGNED);
-                                board.updateBoard(undo);
-                            }
-                        }
-                    }
-                    return false;
+        for (int val = 1; val <= board.getSize(); ++val) {
+            var move = new Square(i, j, val);
+            if (board.isValidMove(move)) {
+                board.updateBoard(move);
+                if (backtrackingSolve(i + 1, j, board)) {
+                    return true;
                 }
             }
         }
-        return true;
+        board.getSquare(i, j).setVal(Board.UNASSIGNED);
+        return false;
+
     }
 }

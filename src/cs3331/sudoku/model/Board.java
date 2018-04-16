@@ -5,6 +5,7 @@ import cs3331.sudoku.solver.Solver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents a sudoku board.
@@ -49,7 +50,14 @@ public class Board {
         if (partiallyFilled) {
             Solver solver = new BackTrackingSolver();
             solver.solve(this);
-            //TODO finish this implementation
+            int minNumberOfClues = size == 4 ? 4 : 17;
+            //remove until there are only minNumberOfClues left
+            for (int i = 0; i < (size * size) - minNumberOfClues; i++) {
+                int ranRow = new Random().nextInt(size);
+                int ranCol = new Random().nextInt(size);
+                getSquare(ranRow, ranCol).setVal(UNASSIGNED);
+                getSquare(ranRow, ranCol).setConstant(true);
+            }
         }
     }
 
@@ -58,6 +66,7 @@ public class Board {
      * @return if the board is in a solved state
      */
     public boolean isSolved(){
+        /*
         int sum = (size * (size + 1)) / 2;//sum of all numbers up to size
         for (int r = 0; r < size; r++) {
             int rowSum = sum;
@@ -66,6 +75,13 @@ public class Board {
             }
             if (rowSum != 0) {
                 return false;
+            }
+        }
+        return true;
+        */
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (!isValidMove(getSquare(i, j))) return false;
             }
         }
         return true;
@@ -121,12 +137,11 @@ public class Board {
         int col = move.getCol();
         int val = move.getVal();
 
-
-        if ((row >= this.size) || (row < 0) || (col >= this.size) || (col < 0) || (val > this.size) || (val < 0)) {
-            return false;
-        }
+//        if ((row >= this.size) || (row < 0) || (col >= this.size) || (col < 0) || (val > this.size) || (val < 0)) {
+//            return false;
+//        }
 //        if(val == UNASSIGNED) return true;//removing is always a valid move
-        return validBox(move) && validRow(move) && validCol(move);
+        return !getSquare(row, col).isConstant() && validBox(move) && validRow(move) && validCol(move);
     }
 
     /**
