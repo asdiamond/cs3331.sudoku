@@ -40,8 +40,11 @@ public class SudokuDialog extends cs3331.sudoku.graphics2d.SudokuDialog {
     @Override
     protected void configureUI() {
 //        super.configureUI();
+        //for dropdown jmenu
         setLayout(new BorderLayout());
-        createMenu();
+        JMenuBar jMenuBar = new JMenuBar();
+        jMenuBar.add(createMenu());
+        setJMenuBar(jMenuBar);
 
         //for toolbar
         JToolBar toolBar = new JToolBar("Toolbar");
@@ -71,13 +74,11 @@ public class SudokuDialog extends cs3331.sudoku.graphics2d.SudokuDialog {
     /**
      * Creates Menu with new 4x4 and 9x9 options.
      */
-    private void createMenu() {
+    protected JMenu createMenu() {
         //create menubar and menu
-        JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Game");
         menu.setMnemonic(KeyEvent.VK_A);
         menu.getAccessibleContext().setAccessibleDescription("The Game menu");
-        menuBar.add(menu);
 
         //jmenu items
         //new 4x4 menu item
@@ -119,7 +120,7 @@ public class SudokuDialog extends cs3331.sudoku.graphics2d.SudokuDialog {
         });
         menu.add(solve);
 
-        setJMenuBar(menuBar);
+        return menu;
     }
 
     public static void main(String[] args) {

@@ -2,6 +2,8 @@ package cs3331.sudoku.network;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 public class SudokuDialog extends cs3331.sudoku.advancedgraphics2d.SudokuDialog{
 
@@ -14,22 +16,20 @@ public class SudokuDialog extends cs3331.sudoku.advancedgraphics2d.SudokuDialog{
     }
 
     @Override
-    protected void initVars() {
-        super.initVars();
+    protected JMenu createMenu() {
+        JMenu menu = super.createMenu();
+        JMenuItem network = new JMenuItem("Pair",
+                KeyEvent.VK_A);
+        network.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, InputEvent.ALT_MASK));
+        network.getAccessibleContext().setAccessibleDescription("Pair");
+        network.addActionListener(e -> {
+            new NetworkDialog();
+        });
+        menu.add(network);
+        return menu;
     }
 
-    @Override
-    protected void configureUI() {
-        super.configureUI();
-    }
-
-    @Override
-    protected JPanel makeControlPanel() {
-        return super.makeControlPanel();
-    }
-
-    @Override
-    protected void newClicked(int size) {
-        super.newClicked(size);
+    public static void main(String[] args) {
+        new SudokuDialog();
     }
 }
