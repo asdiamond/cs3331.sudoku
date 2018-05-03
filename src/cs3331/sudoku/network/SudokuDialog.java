@@ -1,5 +1,8 @@
 package cs3331.sudoku.network;
 
+import cs3331.sudoku.model.Board;
+import cs3331.sudoku.model.Square;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
@@ -15,6 +18,15 @@ public class SudokuDialog extends cs3331.sudoku.advancedgraphics2d.SudokuDialog{
 
     protected SudokuDialog(Dimension dim) {
         super(dim);
+    }
+
+    Board getBoard() {
+        return board;
+    }
+
+    void setBoard(Board board) {
+        this.board = board;
+        boardPanel.setBoard(this.board);
     }
 
     @Override
@@ -45,4 +57,12 @@ public class SudokuDialog extends cs3331.sudoku.advancedgraphics2d.SudokuDialog{
         return menu;
     }
 
+    @Override
+    protected void numberClicked(int number) {
+        super.numberClicked(number);
+        Square s = new Square(boardPanel.selected.getRow(), boardPanel.selected.getCol(), number);
+//        if(getBoard().isValidMove(s)){
+        Main.networkAdapter.writeFill(s.getRow(), s.getCol(), number);
+//        }
+    }
 }

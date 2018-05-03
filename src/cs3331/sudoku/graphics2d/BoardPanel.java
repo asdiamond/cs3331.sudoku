@@ -24,7 +24,7 @@ public class BoardPanel extends JPanel {
 
     //the square that is currently selected
     //null if none
-    Square selected;
+    public Square selected;
 
 	public interface ClickListener {
 		

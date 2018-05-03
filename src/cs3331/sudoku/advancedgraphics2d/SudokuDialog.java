@@ -33,7 +33,7 @@ public class SudokuDialog extends cs3331.sudoku.graphics2d.SudokuDialog {
     protected void initVars() {
         this.solver = new BackTrackingSolver();
         //order matters here.
-        this.board = new Board(9, true);
+        this.board = new Board(9);
         this.boardPanel = new BoardPanel(board, this::boardClicked);
     }
 

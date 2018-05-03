@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.net.Socket;
 
 public class NetworkDialog extends JDialog {
-    final static Dimension DEFAULT_DIM = new Dimension(310, 430);
+    private final static Dimension DEFAULT_DIM = new Dimension(310, 430);
 
     private JPanel contentPane;
     private JPanel HostInfo;

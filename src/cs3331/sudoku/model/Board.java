@@ -17,6 +17,10 @@ public class Board {
     private List<Square> internalBoard;
     public static final int UNASSIGNED = 0;
 
+    public List<Square> getInternalBoard() {
+        return internalBoard;
+    }
+
     /**
      * Default constructor with size 4
      */
